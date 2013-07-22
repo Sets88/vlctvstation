@@ -17,24 +17,26 @@
 <a href="/addjob/" class="btn btn-primary">Добавить задание</a>
 <br><br>
 {% if media %}
-	{% if state == 1 %}
+	{% if media['state'] == 1 %}
 		<p class="text-info"><strong>Открывается: </strong></p>
-	{% elif state == 2 %}
+	{% elif media['state'] == 2 %}
 		<p class="text-info"><strong>Буферизируется: </strong></p>
-	{% elif state == 3 %}
+	{% elif media['state'] == 3 %}
 		<p class="text-success"><strong>Проигрывается: </strong></p>
-	{% elif state == 4 %}
+	{% elif media['state'] == 4 %}
 		<p class="text-warning"><strong>Приостановлено: </strong></p>
-	{% elif state == 5 %}
+	{% elif media['state'] == 5 %}
 		<p class="muted"><strong>Остановлено: </strong></p>
-	{% elif state == 6 %}
+	{% elif media['state'] == 6 %}
 		<p class="text-warning"><strong>Закончился: </strong></p>
-	{% elif state == 7 %}
+	{% elif media['state'] == 7 %}
 		<p class="text-error"><strong>Ошибка: </strong></p>
 	{% else %}
 		<p class="muted"><strong>Плеер остановлен</strong></p>
 	{% endif %}
-	<p>{{ media }}</p>
+	{% if media['mrl'] %}
+	<p>{{ media['mrl'] }}</p>
+	{% endif %}
 {% else %}
 	<p class="muted"><strong>Плеер остановлен</strong></p>
 {% endif %}
