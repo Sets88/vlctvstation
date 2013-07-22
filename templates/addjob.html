@@ -1,0 +1,69 @@
+{% extends "main.html" %}
+{% block content %}
+<form action="" method="POST">
+<table>
+	<tr>
+		<td>Название</td>
+		<td><input name="name" value=""></td>
+	</tr>
+	<tr>
+		<td>Секунды</td>
+		<td><input name="second" value=""></td>
+	</tr>
+	<tr>
+		<td>Минуты</td>
+		<td><input name="minute" value=""></td>
+	</tr>
+	<tr>
+		<td>Часы</td>
+		<td><input name="hour" value=""></td>
+	</tr>
+	<tr>
+		<td>Дни недели</td>
+		<td><input name="day_of_week" value=""></td>
+	</tr>
+	<tr>
+		<td>Недели</td>
+		<td><input name="week" value=""></td>
+	</tr>
+	<tr>
+		<td>Дни</td>
+		<td><input name="day" value=""></td>
+	</tr>
+	<tr>
+		<td>Месяцы</td>
+		<td><input name="month" value=""></td>
+	</tr>
+	<tr>
+		<td>Годы</td>
+		<td><input name="year" value=""></td>
+	</tr>
+	<tr>
+		<td>Видео</td>
+		<td><input name="uri" value=""></td>
+	</tr>
+	<tr>
+		<td>Звук</td>
+		<td><input name="audio" value=""></td>
+	</tr>
+	<tr>
+		<td>Количество повторов</td>
+		<td><input name="repeat" value=""></td>
+	</tr>
+	<tr>
+		<td>Запускать после</td>
+		<td>
+			<select name="if_end_reached_run">
+				<option value=""></option>
+				{% for ljob in jobs %}
+					<option value="{{ ljob.name }}">{{ ljob.name }}</option>
+				{% endfor %}
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2><input type="submit" value="Добавить"></td>
+	</tr>
+</table>
+</form>
+{% endblock %}

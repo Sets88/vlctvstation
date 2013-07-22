@@ -1,0 +1,43 @@
+{% extends "main.html" %}
+{% block content %}
+{% if jobs %}
+<table class="table">
+
+	<tr>
+		<td><strong>Задания:</strong></td>
+		<td>{{ datetime }}</td>
+	</tr>
+{% for job in jobs %}
+	<tr {% if current_job %}{% if current_job.id == job.id %}class="success"{% endif %}{% endif %}>
+		<td><a href="/editjob/{{ job.id }}/">{{ job }}</a></td><td><a href="/deletejob/{{ job.id }}/" class="btn btn-danger">Удалить</a> <a href="/runjob/{{ job.id }}/" class="btn btn-primary">Запустить</a></td>
+	</tr>
+{% endfor %}
+</table>
+{% endif %}
+<a href="/addjob/" class="btn btn-primary">Добавить задание</a>
+<br><br>
+{% if media %}
+	{% if state == 1 %}
+		<p class="text-info"><strong>Открывается: </strong></p>
+	{% elif state == 2 %}
+		<p class="text-info"><strong>Буферизируется: </strong></p>
+	{% elif state == 3 %}
+		<p class="text-success"><strong>Проигрывается: </strong></p>
+	{% elif state == 4 %}
+		<p class="text-warning"><strong>Приостановлено: </strong></p>
+	{% elif state == 5 %}
+		<p class="muted"><strong>Остановлено: </strong></p>
+	{% elif state == 6 %}
+		<p class="text-warning"><strong>Закончился: </strong></p>
+	{% elif state == 7 %}
+		<p class="text-error"><strong>Ошибка: </strong></p>
+	{% else %}
+		<p class="muted"><strong>Плеер остановлен</strong></p>
+	{% endif %}
+	<p>{{ media }}</p>
+{% else %}
+	<p class="muted"><strong>Плеер остановлен</strong></p>
+{% endif %}
+<br>
+<a href="/play/" class="btn btn-primary">Играть</a> <a href="/pause/" class="btn btn-info">Пауза</a> <a href="/open/" class="btn btn-success">Открыть</a>
+{% endblock %}

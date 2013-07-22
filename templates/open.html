@@ -1,0 +1,22 @@
+{% extends "main.html" %}
+{% block content %}
+<form action="/open/" method="POST">
+<table>
+	<tr>
+		<td>Видео</td>
+		<td><input name="uri" value=""></td>
+	</tr>
+	<tr>
+		<td>Звук</td>
+		<td><input name="audio" value=""></td>
+	</tr>
+	<tr>
+		<td>Количество повторов</td>
+		<td><input name="repeat" value=""></td>
+	</tr>
+	<tr>
+		<td colspan=2><input type="submit" value="Открыть"></td>
+	</tr>
+</table>
+</form>
+{% endblock %}

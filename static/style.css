@@ -1,0 +1,76 @@
+img 
+{
+    border: none;
+}
+form 
+{
+    margin: 0px; 
+    padding: 0px;
+}
+.withip
+{
+    padding: 5px 10px;
+    cursor: pointer;
+    position: relative;
+}
+.noip
+{
+    padding: 5px 10px;
+    cursor: pointer;
+    position: relative;
+}
+.withip:hover,.noip:hover, .hlgreen:hover
+{
+	background: #bfffbf;
+	border-radius:16px;
+	-webkit-border-radius:16px;
+	-moz-border-radius:15px;
+	-khtml-border-radius:20px;
+}
+
+.withip .adminbut
+{
+    position: absolute;
+    right: 10px;
+    top: 5px;
+}
+.withip,.noip
+{
+	border-bottom: 1px dotted #afafaf;
+}
+.noip .adminbut
+{
+    position: absolute;
+    right: 10px;
+    top: 5px;
+}
+.toright
+{
+    position: absolute;
+    right: 10px;
+    top: 5px;
+}
+ul
+{
+	margin: 0;
+	padding: 0;
+	padding-left: 80px;
+}
+.firstul
+{
+	margin: 0;
+	padding: 0;
+	padding-left: 0px;
+}
+.label-important a, .label-important span
+{
+	color: white;
+}
+.normal-ip, .normal-ip a
+{
+	color: 000066;
+}
+.ipaddr
+{
+    color: #0088CC;
+}

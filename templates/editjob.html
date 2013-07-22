@@ -1,0 +1,71 @@
+{% extends "main.html" %}
+{% block content %}
+<form action="" method="POST">
+<table>
+	<tr>
+		<td>Название</td>
+		<td><input name="name" value="{{ job['name'] }}"></td>
+	</tr>
+	<tr>
+		<td>Секунды</td>
+		<td><input name="second" value="{{ job['trigger']['second'] }}"></td>
+	</tr>
+	<tr>
+		<td>Минуты</td>
+		<td><input name="minute" value="{{ job['trigger']['minute'] }}"></td>
+	</tr>
+	<tr>
+		<td>Часы</td>
+		<td><input name="hour" value="{{ job['trigger']['hour'] }}"></td>
+	</tr>
+	<tr>
+		<td>Дни недели</td>
+		<td><input name="day_of_week" value="{{ job['trigger']['day_of_week'] }}"></td>
+	</tr>
+	<tr>
+		<td>Недели</td>
+		<td><input name="week" value="{{ job['trigger']['week'] }}"></td>
+	</tr>
+	<tr>
+		<td>Дни</td>
+		<td><input name="day" value="{{ job['trigger']['day'] }}"></td>
+	</tr>
+	<tr>
+		<td>Месяцы</td>
+		<td><input name="month" value="{{ job['trigger']['month'] }}"></td>
+	</tr>
+	<tr>
+		<td>Годы</td>
+		<td><input name="year" value="{{ job['trigger']['year'] }}"></td>
+	</tr>
+	<tr>
+		<td>Видео</td>
+		<td><input name="uri" value="{{ job['kwargs']['uri'] }}"></td>
+	</tr>
+	<tr>
+		<td>Звук</td>
+		<td><input name="audio" value="{{ job['kwargs']['audio'] }}"></td>
+	</tr>
+	<tr>
+		<td>Количество повторов</td>
+		<td><input name="repeat" value="{{ job['kwargs']['repeat'] }}"></td>
+	</tr>
+	<tr>
+		<td>Запускать после {{ job['kwargs']['if_end_reached_run'] }}</td>
+		<td>
+			<select name="if_end_reached_run">
+				<option value=""></option>
+				{% for ljob in jobs %}
+					{% if job['name'] != ljob.name %}
+					<option value="{{ ljob.name }}" {% if job['kwargs']['if_end_reached_run'] == ljob.name %}selected{% endif %}>{{ ljob.name }}</option>
+					{% endif %}
+				{% endfor %}
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2><input type="submit" value="Изменить"></td>
+	</tr>
+</table>
+</form>
+{% endblock %}
