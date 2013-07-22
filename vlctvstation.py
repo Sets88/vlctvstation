@@ -165,6 +165,15 @@ def get_job_info(job):
             info['trigger'][field.name] = str(field)
     return info
 
+def get_player_info(player):
+    res = {}
+    media = player.get_media()
+    res['state'] = media_player.get_state()
+    if media:
+        res['mrl'] = media.get_mrl()
+    return res
+
+
 # DECORATORS #############
 
 
@@ -204,14 +213,8 @@ def logout():
 @app.route("/")
 @login_required
 def root():
-    media = media_player.get_media()
-    if media:
-        media_name = media.get_mrl()
-        state = media_player.get_state()
-    else:
-        media_name = None
-        state = None
-    return render_template("jobs.html", jobs=sorted(sched.get_jobs()), media=media_name, state=state, datetime=datetime.now(), current_job=current_job)
+    media = get_player_info(media_player)
+    return render_template("jobs.html", jobs=sorted(sched.get_jobs()), media=media, datetime=datetime.now(), current_job=current_job)
 
 
 @app.route("/addjob/", methods=["GET", "POST"])
