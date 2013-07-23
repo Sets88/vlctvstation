@@ -40,15 +40,15 @@
 	</tr>
 	<tr>
 		<td>Видео</td>
-		<td><input name="uri" value="{{ job['kwargs']['uri'] }}"></td>
+		<td><input name="uri" value="{% if job['kwargs']['uri'] %}{{ job['kwargs']['uri'] }}{% endif %}"></td>
 	</tr>
 	<tr>
 		<td>Звук</td>
-		<td><input name="audio" value="{{ job['kwargs']['audio'] }}"></td>
+		<td><input name="audio" value="{% if job['kwargs']['audio'] %}{{ job['kwargs']['audio'] }}{% endif %}"></td>
 	</tr>
 	<tr>
 		<td>Количество повторов</td>
-		<td><input name="repeat" value="{{ job['kwargs']['repeat'] }}"></td>
+		<td><input name="repeat" value="{% if job['kwargs']['repeat'] %}{{ job['kwargs']['repeat'] }}{% endif %}"></td>
 	</tr>
 	<tr>
 		<td>Запускать после {{ job['kwargs']['if_end_reached_run'] }}</td>
@@ -62,6 +62,33 @@
 				{% endfor %}
 			</select>
 		</td>
+	</tr>
+		<tr>
+		<td colspan=2><strong>Надписи</strong></td>
+	</tr>
+	<tr>
+		<td>Текст</td>
+		<td><input name="marq_text" value="{% if job['kwargs']['marq_options']['marq_text'] %}{{ job['kwargs']['marq_options']['marq_text'] }}{% endif %}"></td>
+	</tr>
+	<tr>
+		<td>Цвет</td>
+		<td><input name="marq_color" value="{% if job['kwargs']['marq_options']['marq_color'] %}{{ job['kwargs']['marq_options']['marq_color'] }}{% endif %}"></td>
+	</tr>
+	<tr>
+		<td>Позиция</td>
+		<td><input name="marq_position" value="{% if job['kwargs']['marq_options']['marq_position'] %}{{ job['kwargs']['marq_options']['marq_position'] }}{% endif %}"></td>
+	</tr>
+	<tr>
+		<td>Расположение по горизонтали</td>
+		<td><input name="marq_x" value="{% if job['kwargs']['marq_options']['marq_x'] %}{{ job['kwargs']['marq_options']['marq_x'] }}{% endif %}"></td>
+	</tr>
+	<tr>
+		<td>Расположение по вертикали</td>
+		<td><input name="marq_y" value="{% if job['kwargs']['marq_options']['marq_y'] %}{{ job['kwargs']['marq_options']['marq_y'] }}{% endif %}"></td>
+	</tr>
+	<tr>
+		<td>Размер шрифта</td>
+		<td><input name="marq_size" value="{% if job['kwargs']['marq_options']['marq_size'] %}{{ job['kwargs']['marq_options']['marq_size'] }}{% endif %}"></td>
 	</tr>
 	<tr>
 		<td colspan=2><input type="submit" value="Изменить"></td>

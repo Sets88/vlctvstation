@@ -9,6 +9,7 @@ import vlc
 from functools import wraps
 from auth import Auth
 from settings import settings
+from mdict import MDict
 import logging
 logging.basicConfig()
 
@@ -19,7 +20,7 @@ app.secret_key = str(settings['secret'])
 
 auth = Auth(settings['users'], settings['secret'])
 
-vlc_instance = vlc.Instance("--no-osd")
+vlc_instance = vlc.Instance("--video-title-show --video-title-timeout 1 --sub-source marq")
 media_player = vlc_instance.media_player_new()
 audio_player = vlc_instance.media_player_new()
 media_player.set_fullscreen(settings['fullscreen'])
@@ -29,19 +30,34 @@ current_job = None
 def event_end_reached_listener(event):
     """Adds a job to scheduler on now() + 1 sec to change media"""
     global current_job
-    if current_job:
+    if current_job: 
         if current_job.kwargs['if_end_reached_run']:
             new_job = get_job_by_name(current_job.kwargs['if_end_reached_run'])
             current_job = new_job
             sched.add_date_job(change_media_sources, datetime.now()+timedelta(seconds=1), kwargs=new_job.kwargs, name="temporary_system_job")
             #run_job_by_name(current_job.kwargs['if_end_reached_run'])
 
-def change_media_sources(uri, repeat=0, audio=None, if_end_reached_run=None):
+def change_media_sources(uri, repeat=0, audio=None, if_end_reached_run=None, marq_options=None):
     options = []
     if audio is not None:
         options.append("no-audio")
     if repeat > 0:
         options.append("input-repeat=%d" % repeat)
+    
+    # Marquee
+    if marq_options and 'marq_text' in marq_options:
+        media_player.video_set_marquee_int(vlc.VideoMarqueeOption.Enable, 1)
+        media_player.video_set_marquee_string(vlc.VideoMarqueeOption.Text, marq_options['marq_text'])
+        if 'marq_color' in marq_options:
+            media_player.video_set_marquee_int(vlc.VideoMarqueeOption.Color, marq_options['marq_color'])
+        if 'marq_position' in marq_options:
+            media_player.video_set_marquee_int(vlc.VideoMarqueeOption.Position, marq_options['marq_position'])
+        if 'marq_x' in marq_options:
+            media_player.video_set_marquee_int(vlc.VideoMarqueeOption.marquee_X, marq_options['marq_x'])
+        if 'marq_y' in marq_options:
+            media_player.video_set_marquee_int(vlc.VideoMarqueeOption.marquee_Y, marq_options['marq_y'])
+    else:
+        media_player.video_set_marquee_int(vlc.VideoMarqueeOption.Enable, 0)
 
     media = vlc_instance.media_new(uri)
     for option in options:
@@ -111,45 +127,28 @@ def get_job_by_name(name):
             return job
 
 
-def sched_add_job(second, minute, hour, day_of_week, week, day, month, year, uri, audio, repeat, name, if_end_reached_run=None):
-    kwargs = {}
-    func_kwargs = {}
-    if second:
-        kwargs['second'] = second
-    if minute:
-        kwargs['minute'] = minute
-    if hour:
-        kwargs['hour'] = hour
-    if day_of_week:
-        kwargs['day_of_week'] = day_of_week
-    if week:
-        kwargs['week'] = week
-    if day:
-        kwargs['day'] = day
-    if month:
-        kwargs['month'] = month
-    if year:
-        kwargs['year'] = year
+def sched_add_job(**kwargs):
+    new_kwargs = {'hour': None, 'day_of_week': None, 'week': None, 'day': None, 'month': None, 'year': None, 'name': None}
+    func_kwargs = {'audio': None, 'repeat': None, 'if_end_reached_run': None, 'uri': None}
+    marq_options = {}
+
+    new_kwargs = MDict({'second': str, 'minute': str, 'hour': str, 'day_of_week': str, 'week': str, 'day': str, 'month': str, 'year': str, 'name': str, 'jobstore': str, 'kwargs': dict})
+    func_kwargs = MDict({'audio': str, 'repeat': int, 'if_end_reached_run': str, 'uri': str, 'marq_options': dict})
+    marq_options = MDict({'marq_text': str, 'marq_color': int, 'marq_position': int, 'marq_x': int, 'marq_y': int, 'marq_size': int})
+    
+    new_kwargs.update(kwargs)
+    func_kwargs.update(kwargs)
+    marq_options.update(kwargs)
+
+    func_kwargs['marq_options'] = dict(marq_options)
+    new_kwargs['jobstore'] = 'shelve'
+    new_kwargs['kwargs'] = func_kwargs
 
     # if nothing filled, set cron, to far, far future
-    if len(kwargs) == 0:
-        kwargs['year'] = '3000'
+    if new_kwargs.has_not_a_single_item(['hour', 'day_of_week', 'week', 'day', 'month','year']):
+        new_kwargs['year'] = '3000'
 
-    if name:
-        kwargs['name'] = name
-
-    if audio:
-        func_kwargs['audio'] = audio
-    if repeat:
-        func_kwargs['repeat'] = int(repeat)
-    if if_end_reached_run:
-        func_kwargs['if_end_reached_run'] = if_end_reached_run
-
-    func_kwargs['uri'] = uri
-    kwargs['kwargs'] = func_kwargs
-    kwargs['jobstore'] = 'shelve'
-
-    sched.add_cron_job(change_media_sources, **kwargs)
+    sched.add_cron_job(change_media_sources, **new_kwargs)
 
 
 def get_job_info(job):
@@ -253,11 +252,11 @@ def edit_job(id):
             curr_job = job
             break
     if request.method == "POST":
-        try:
+        #try:
             sched_add_job(**request.form.to_dict())
-        except:
-            pass
-        else:
+        #except:
+            #pass
+        #else:
             sched.unschedule_job(curr_job)
             return redirect("/")
     return render_template("editjob.html", jobs=sched.get_jobs(), job=get_job_info(curr_job))
