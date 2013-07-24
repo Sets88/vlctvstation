@@ -265,6 +265,8 @@ def edit_job(id):
 @login_required
 def player_play():
     if media_player.get_media():
+        if media_player.get_state() != 4:
+            media_player.set_media(media_player.get_media())
         media_player.play()
     if audio_player.get_media():
         audio_player.play()
