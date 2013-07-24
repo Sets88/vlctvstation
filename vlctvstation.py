@@ -305,5 +305,9 @@ def player_open():
         return render_template("open.html")
 
 
-if __name__ == "__main__":
+def main():
     app.run(host=settings['host'], port=settings['port'])
+
+
+if __name__ == "__main__":
+    main()
