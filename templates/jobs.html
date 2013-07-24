@@ -1,45 +1,45 @@
 {% extends "main.html" %}
 {% block content %}
 {% if jobs %}
-<table class="table">
+<table class="table table-hover">
 
 	<tr>
-		<td><strong>Задания:</strong></td>
+		<td><strong>Jobs:</strong></td>
 		<td>{{ datetime }}</td>
 	</tr>
 {% for job in jobs %}
 	<tr {% if current_job %}{% if current_job.id == job.id %}class="success"{% endif %}{% endif %}>
-		<td><a href="/editjob/{{ job.id }}/">{{ job }}</a></td><td><a href="/deletejob/{{ job.id }}/" class="btn btn-danger">Удалить</a> <a href="/runjob/{{ job.id }}/" class="btn btn-primary">Запустить</a></td>
+		<td><a href="/editjob/{{ job.id }}/">{{ job }}</a></td><td><a href="/deletejob/{{ job.id }}/" class="btn btn-danger">Delete</a> <a href="/runjob/{{ job.id }}/" class="btn btn-primary">Run</a></td>
 	</tr>
 {% endfor %}
 </table>
 {% endif %}
-<a href="/addjob/" class="btn btn-primary">Добавить задание</a>
+<a href="/addjob/" class="btn btn-primary">Add job</a>
 <br><br>
 {% if media %}
 	{% if media['state'] == 1 %}
-		<p class="text-info"><strong>Открывается: </strong></p>
+		<p class="text-info"><strong>Opening: </strong></p>
 	{% elif media['state'] == 2 %}
-		<p class="text-info"><strong>Буферизируется: </strong></p>
+		<p class="text-info"><strong>Buffering: </strong></p>
 	{% elif media['state'] == 3 %}
-		<p class="text-success"><strong>Проигрывается: </strong></p>
+		<p class="text-success"><strong>Playing: </strong></p>
 	{% elif media['state'] == 4 %}
-		<p class="text-warning"><strong>Приостановлено: </strong></p>
+		<p class="text-warning"><strong>Paused: </strong></p>
 	{% elif media['state'] == 5 %}
-		<p class="muted"><strong>Остановлено: </strong></p>
+		<p class="muted"><strong>Stopped: </strong></p>
 	{% elif media['state'] == 6 %}
-		<p class="text-warning"><strong>Закончился: </strong></p>
+		<p class="text-warning"><strong>Ended: </strong></p>
 	{% elif media['state'] == 7 %}
-		<p class="text-error"><strong>Ошибка: </strong></p>
+		<p class="text-error"><strong>Error: </strong></p>
 	{% else %}
-		<p class="muted"><strong>Плеер остановлен</strong></p>
+		<p class="muted"><strong>Stopped</strong></p>
 	{% endif %}
 	{% if media['mrl'] %}
 	<p>{{ media['mrl'] }}</p>
 	{% endif %}
 {% else %}
-	<p class="muted"><strong>Плеер остановлен</strong></p>
+	<p class="muted"><strong>Stopped</strong></p>
 {% endif %}
 <br>
-<a href="/play/" class="btn btn-primary">Играть</a> <a href="/pause/" class="btn btn-info">Пауза</a> <a href="/open/" class="btn btn-success">Открыть</a>
+<a href="/play/" class="btn btn-primary" title="Play"><i class="icon-play icon-white"></i></a> <a href="/pause/" class="btn btn-info" title="Pause"><i class="icon-pause icon-white"></i></a> <a href="/open/" class="btn btn-success"><i class="icon-folder-open icon-white" title="Open file"></i></a>
 {% endblock %}

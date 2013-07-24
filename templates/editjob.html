@@ -3,95 +3,93 @@
 <form action="" method="POST">
 <table>
 	<tr>
-		<td>Название</td>
-		<td><input name="name" value="{{ job['name'] }}"></td>
+		<td>Name</td>
+		<td><input type="text" name="name" value="{{ job['name'] }}"></td>
 	</tr>
 	<tr>
-		<td>Секунды</td>
-		<td><input name="second" value="{{ job['trigger']['second'] }}"></td>
+		<td>Seconds</td>
+		<td><input type="text" name="second" value="{{ job['trigger']['second'] }}"></td>
 	</tr>
 	<tr>
-		<td>Минуты</td>
-		<td><input name="minute" value="{{ job['trigger']['minute'] }}"></td>
+		<td>Minutes</td>
+		<td><input type="text" name="minute" value="{{ job['trigger']['minute'] }}"></td>
 	</tr>
 	<tr>
-		<td>Часы</td>
-		<td><input name="hour" value="{{ job['trigger']['hour'] }}"></td>
+		<td>Hours</td>
+		<td><input type="text" name="hour" value="{{ job['trigger']['hour'] }}"></td>
 	</tr>
 	<tr>
-		<td>Дни недели</td>
-		<td><input name="day_of_week" value="{{ job['trigger']['day_of_week'] }}"></td>
+		<td>Days of week</td>
+		<td><input type="text" name="day_of_week" value="{{ job['trigger']['day_of_week'] }}"></td>
 	</tr>
 	<tr>
-		<td>Недели</td>
-		<td><input name="week" value="{{ job['trigger']['week'] }}"></td>
+		<td>Weeks</td>
+		<td><input type="text" name="week" value="{{ job['trigger']['week'] }}"></td>
 	</tr>
 	<tr>
-		<td>Дни</td>
-		<td><input name="day" value="{{ job['trigger']['day'] }}"></td>
+		<td>Days</td>
+		<td><input type="text" name="day" value="{{ job['trigger']['day'] }}"></td>
 	</tr>
 	<tr>
-		<td>Месяцы</td>
-		<td><input name="month" value="{{ job['trigger']['month'] }}"></td>
+		<td>Months</td>
+		<td><input type="text" name="month" value="{{ job['trigger']['month'] }}"></td>
 	</tr>
 	<tr>
-		<td>Годы</td>
-		<td><input name="year" value="{{ job['trigger']['year'] }}"></td>
+		<td>Years</td>
+		<td><input type="text" name="year" value="{{ job['trigger']['year'] }}"></td>
 	</tr>
 	<tr>
-		<td>Видео</td>
-		<td><input name="uri" value="{% if job['kwargs']['uri'] %}{{ job['kwargs']['uri'] }}{% endif %}"></td>
+		<td>Video source</td>
+		<td><input type="text" name="uri" value="{% if job['kwargs']['uri'] %}{{ job['kwargs']['uri'] }}{% endif %}"></td>
 	</tr>
 	<tr>
-		<td>Звук</td>
-		<td><input name="audio" value="{% if job['kwargs']['audio'] %}{{ job['kwargs']['audio'] }}{% endif %}"></td>
+		<td>Audio source</td>
+		<td><input type="text" name="audio" value="{% if job['kwargs']['audio'] %}{{ job['kwargs']['audio'] }}{% endif %}"></td>
 	</tr>
 	<tr>
-		<td>Количество повторов</td>
-		<td><input name="repeat" value="{% if job['kwargs']['repeat'] %}{{ job['kwargs']['repeat'] }}{% endif %}"></td>
+		<td>Repeats</td>
+		<td><input type="text" name="repeat" value="{% if job['kwargs']['repeat'] %}{{ job['kwargs']['repeat'] }}{% endif %}"></td>
 	</tr>
 	<tr>
-		<td>Запускать после {{ job['kwargs']['if_end_reached_run'] }}</td>
+		<td>Run after end</td>
 		<td>
 			<select name="if_end_reached_run">
 				<option value=""></option>
 				{% for ljob in jobs %}
-					{% if job['name'] != ljob.name %}
 					<option value="{{ ljob.name }}" {% if job['kwargs']['if_end_reached_run'] == ljob.name %}selected{% endif %}>{{ ljob.name }}</option>
-					{% endif %}
 				{% endfor %}
 			</select>
 		</td>
 	</tr>
 		<tr>
-		<td colspan=2><strong>Надписи</strong></td>
+		<td colspan=2><strong>Showing text</strong></td>
 	</tr>
 	<tr>
-		<td>Текст</td>
-		<td><input name="marq_text" value="{% if job['kwargs']['marq_options']['marq_text'] %}{{ job['kwargs']['marq_options']['marq_text'] }}{% endif %}"></td>
+		<td>Text</td>
+		<td><input type="text" name="marq_text" value="{% if job['kwargs']['marq_options']['marq_text'] %}{{ job['kwargs']['marq_options']['marq_text'] }}{% endif %}"></td>
 	</tr>
 	<tr>
-		<td>Цвет</td>
-		<td><input name="marq_color" value="{% if job['kwargs']['marq_options']['marq_color'] %}{{ job['kwargs']['marq_options']['marq_color'] }}{% endif %}"></td>
+		<td>Color</td>
+		<td><input type="text" name="marq_color" value="{% if job['kwargs']['marq_options']['marq_color'] %}{{ job['kwargs']['marq_options']['marq_color'] }}{% endif %}"></td>
 	</tr>
 	<tr>
-		<td>Позиция</td>
-		<td><input name="marq_position" value="{% if job['kwargs']['marq_options']['marq_position'] %}{{ job['kwargs']['marq_options']['marq_position'] }}{% endif %}"></td>
+		<td>Initial position</td>
+		<td><input type="text" name="marq_position" value="{% if job['kwargs']['marq_options']['marq_position'] %}{{ job['kwargs']['marq_options']['marq_position'] }}{% endif %}"></td>
 	</tr>
 	<tr>
-		<td>Расположение по горизонтали</td>
-		<td><input name="marq_x" value="{% if job['kwargs']['marq_options']['marq_x'] %}{{ job['kwargs']['marq_options']['marq_x'] }}{% endif %}"></td>
+		<td>Horizontal offset</td>
+		<td><input type="text" name="marq_x" value="{% if job['kwargs']['marq_options']['marq_x'] %}{{ job['kwargs']['marq_options']['marq_x'] }}{% endif %}"></td>
 	</tr>
 	<tr>
-		<td>Расположение по вертикали</td>
-		<td><input name="marq_y" value="{% if job['kwargs']['marq_options']['marq_y'] %}{{ job['kwargs']['marq_options']['marq_y'] }}{% endif %}"></td>
+		<td>Vertical offset</td>
+		<td><input type="text" name="marq_y" value="{% if job['kwargs']['marq_options']['marq_y'] %}{{ job['kwargs']['marq_options']['marq_y'] }}{% endif %}"></td>
 	</tr>
 	<tr>
-		<td>Размер шрифта</td>
-		<td><input name="marq_size" value="{% if job['kwargs']['marq_options']['marq_size'] %}{{ job['kwargs']['marq_options']['marq_size'] }}{% endif %}"></td>
+		<td>Font size</td>
+		<td><input type="text" name="marq_size" value="{% if job['kwargs']['marq_options']['marq_size'] %}{{ job['kwargs']['marq_options']['marq_size'] }}{% endif %}"></td>
 	</tr>
 	<tr>
-		<td colspan=2><input type="submit" value="Изменить"></td>
+		<td colspan=2><input class="btn btn-primary" type="submit" value="Edit"> <a class="btn" href="/">Cancel</a></td>
 	</tr>
 </table>
 </form>
