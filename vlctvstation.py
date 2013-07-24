@@ -43,7 +43,7 @@ def change_media_sources(uri, repeat=0, audio=None, if_end_reached_run=None, mar
         options.append("no-audio")
     if repeat > 0:
         options.append("input-repeat=%d" % repeat)
-    
+
     # Marquee
     if marq_options and 'marq_text' in marq_options:
         media_player.video_set_marquee_int(vlc.VideoMarqueeOption.Enable, 1)
@@ -56,6 +56,8 @@ def change_media_sources(uri, repeat=0, audio=None, if_end_reached_run=None, mar
             media_player.video_set_marquee_int(vlc.VideoMarqueeOption.marquee_X, marq_options['marq_x'])
         if 'marq_y' in marq_options:
             media_player.video_set_marquee_int(vlc.VideoMarqueeOption.marquee_Y, marq_options['marq_y'])
+        if 'marq_size' in marq_options:
+            media_player.video_set_marquee_int(vlc.VideoMarqueeOption.Size, marq_options['marq_size'])        
     else:
         media_player.video_set_marquee_int(vlc.VideoMarqueeOption.Enable, 0)
 
