@@ -1,0 +1,2 @@
+recursive-include vlctvstation/templates *.html
+recursive-include vlctvstation/static *
