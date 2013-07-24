@@ -8,8 +8,6 @@ class MDict(object):
 			self._dict = {}
 			self._accept_empty = accept_empty
 	def __setitem__(self, key, value):
-		if value:
-			print value, key
 		if not value:
 			if value != 0 and not self._accept_empty:
 				return None
