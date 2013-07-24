@@ -13,8 +13,9 @@ from mdict import MDict
 import logging
 logging.basicConfig()
 
-
 app = Flask(__name__)
+
+sched = Scheduler()
 
 app.secret_key = str(settings['secret'])
 
@@ -24,6 +25,8 @@ vlc_instance = vlc.Instance("--video-title-show --video-title-timeout 1 --sub-so
 media_player = vlc_instance.media_player_new()
 audio_player = vlc_instance.media_player_new()
 media_player.set_fullscreen(settings['fullscreen'])
+
+em_mediaplayer = media_player.event_manager()
 
 current_job = None
 
@@ -103,24 +106,14 @@ def job_executed_listener(event):
     current_job = event.job
 
 
-sched = Scheduler()
-sched.start()
-sched.add_jobstore(ShelveJobStore(settings['dbfile']), 'shelve')
-sched.add_listener(job_executed_listener, EVENT_JOB_EXECUTED | EVENT_JOB_ERROR)
-
-run_last_job(sched.get_jobs())
-
-em_mediaplayer = media_player.event_manager()
-em_mediaplayer.event_attach(vlc.EventType.MediaPlayerEndReached, event_end_reached_listener)
-
-
 def run_job_by_id(id):
     for job in sched.get_jobs():
         if job.id == str(id):
             job.func(**job.kwargs)
             global current_job
             current_job = job
-            break
+            return True
+    return False
 
 
 def get_job_by_name(name):
@@ -144,13 +137,13 @@ def sched_add_job(**kwargs):
 
     func_kwargs['marq_options'] = dict(marq_options)
     new_kwargs['jobstore'] = 'shelve'
-    new_kwargs['kwargs'] = func_kwargs
+    new_kwargs['kwargs'] = dict(func_kwargs)
 
     # if nothing filled, set cron, to far, far future
     if new_kwargs.has_not_a_single_item(['hour', 'day_of_week', 'week', 'day', 'month','year']):
         new_kwargs['year'] = '3000'
 
-    sched.add_cron_job(change_media_sources, **new_kwargs)
+    sched.add_cron_job(change_media_sources, **dict(new_kwargs))
 
 
 def get_job_info(job):
@@ -234,15 +227,17 @@ def delete_job(id):
     for job in sched.get_jobs():
         if job.id == str(id):
             sched.unschedule_job(job)
-            break
-    return redirect("/")
+            return redirect("/")
+    abort(404)
 
 
 @app.route("/runjob/<int:id>/")
 @login_required
 def run_job(id):
-    run_job_by_id(id)
-    return redirect("/")
+    if run_job_by_id(id):
+        return redirect("/")
+    else:
+        abort(404)
 
 
 @app.route("/editjob/<int:id>/", methods=["GET", "POST"])
@@ -253,6 +248,8 @@ def edit_job(id):
         if job.id == str(id):
             curr_job = job
             break
+    if curr_job is None:
+        abort(404)
     if request.method == "POST":
         #try:
             sched_add_job(**request.form.to_dict())
@@ -306,8 +303,15 @@ def player_open():
 
 
 def main():
-    app.run(host=settings['host'], port=settings['port'])
+    sched.start()
+    sched.add_jobstore(ShelveJobStore(settings['dbfile']), 'shelve')
+    sched.add_listener(job_executed_listener, EVENT_JOB_EXECUTED | EVENT_JOB_ERROR)
 
+    run_last_job(sched.get_jobs())
+
+    em_mediaplayer.event_attach(vlc.EventType.MediaPlayerEndReached, event_end_reached_listener)
+
+    app.run(host=settings['host'], port=settings['port'])
 
 if __name__ == "__main__":
     main()
