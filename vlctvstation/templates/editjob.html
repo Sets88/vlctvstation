@@ -66,27 +66,27 @@
 	</tr>
 	<tr>
 		<td>Text</td>
-		<td><input type="text" name="marq_text" value="{% if job['kwargs']['marq_options']['marq_text'] %}{{ job['kwargs']['marq_options']['marq_text'] }}{% endif %}"></td>
+		<td><input type="text" name="marq_text" value="{% if job['kwargs']['marq_options'] %}{{ job['kwargs']['marq_options']['marq_text'] }}{% endif %}"></td>
 	</tr>
 	<tr>
 		<td>Color</td>
-		<td><input type="text" name="marq_color" value="{% if job['kwargs']['marq_options']['marq_color'] %}{{ job['kwargs']['marq_options']['marq_color'] }}{% endif %}"></td>
+		<td><input type="text" name="marq_color" value="{% if job['kwargs']['marq_options'] %}{{ job['kwargs']['marq_options']['marq_color'] }}{% endif %}"></td>
 	</tr>
 	<tr>
 		<td>Initial position</td>
-		<td><input type="text" name="marq_position" value="{% if job['kwargs']['marq_options']['marq_position'] %}{{ job['kwargs']['marq_options']['marq_position'] }}{% endif %}"></td>
+		<td><input type="text" name="marq_position" value="{% if job['kwargs']['marq_options'] %}{{ job['kwargs']['marq_options']['marq_position'] }}{% endif %}"></td>
 	</tr>
 	<tr>
 		<td>Horizontal offset</td>
-		<td><input type="text" name="marq_x" value="{% if job['kwargs']['marq_options']['marq_x'] %}{{ job['kwargs']['marq_options']['marq_x'] }}{% endif %}"></td>
+		<td><input type="text" name="marq_x" value="{% if job['kwargs']['marq_options'] %}{{ job['kwargs']['marq_options']['marq_x'] }}{% endif %}"></td>
 	</tr>
 	<tr>
 		<td>Vertical offset</td>
-		<td><input type="text" name="marq_y" value="{% if job['kwargs']['marq_options']['marq_y'] %}{{ job['kwargs']['marq_options']['marq_y'] }}{% endif %}"></td>
+		<td><input type="text" name="marq_y" value="{% if job['kwargs']['marq_options'] %}{{ job['kwargs']['marq_options']['marq_y'] }}{% endif %}"></td>
 	</tr>
 	<tr>
 		<td>Font size</td>
-		<td><input type="text" name="marq_size" value="{% if job['kwargs']['marq_options']['marq_size'] %}{{ job['kwargs']['marq_options']['marq_size'] }}{% endif %}"></td>
+		<td><input type="text" name="marq_size" value="{% if job['kwargs']['marq_options'] %}{{ job['kwargs']['marq_options']['marq_size'] }}{% endif %}"></td>
 	</tr>
 	<tr>
 		<td colspan=2><input class="btn btn-primary" type="submit" value="Edit"> <a class="btn" href="/">Cancel</a></td>
