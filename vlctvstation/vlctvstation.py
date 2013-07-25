@@ -1,4 +1,5 @@
 #! /usr/bin/python
+import os
 from flask import Flask
 from flask import request, redirect, abort
 from flask import render_template
@@ -33,15 +34,8 @@ em_mediaplayer = media_player.event_manager()
 
 current_job = None
 
-#gettext.install('vlctvstation', './translations', unicode=True)
-
-#languages = {
-    #"english" : gettext.translation('vlctvstation', './translations', languages=["en"]),
-    #"russian"  : gettext.translation('vlctvstation', './translations', languages=["ru"]),
-#}
-#languages["russian"].install()
-
-translation = gettext.translation('vlctvstation', './translations')
+current_dir = os.path.dirname(os.path.abspath(__file__))
+translation = gettext.translation('vlctvstation', os.path.join(current_dir, 'translations'))
 
 def translate(text):
     return translation.gettext(text).decode("utf-8")
