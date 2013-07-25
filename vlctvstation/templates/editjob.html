@@ -3,55 +3,55 @@
 <form action="" method="POST">
 <table>
 	<tr>
-		<td>Name</td>
+		<td>{{ _('Name') }}</td>
 		<td><input type="text" name="name" value="{{ job['name'] }}"></td>
 	</tr>
 	<tr>
-		<td>Seconds</td>
+		<td>{{ _('Seconds') }}</td>
 		<td><input type="text" name="second" value="{{ job['trigger']['second'] }}"></td>
 	</tr>
 	<tr>
-		<td>Minutes</td>
+		<td>{{ _('Minutes') }}</td>
 		<td><input type="text" name="minute" value="{{ job['trigger']['minute'] }}"></td>
 	</tr>
 	<tr>
-		<td>Hours</td>
+		<td>{{ _('Hours') }}</td>
 		<td><input type="text" name="hour" value="{{ job['trigger']['hour'] }}"></td>
 	</tr>
 	<tr>
-		<td>Days of week</td>
+		<td>{{ _('Days of week') }}</td>
 		<td><input type="text" name="day_of_week" value="{{ job['trigger']['day_of_week'] }}"></td>
 	</tr>
 	<tr>
-		<td>Weeks</td>
+		<td>{{ _('Weeks') }}</td>
 		<td><input type="text" name="week" value="{{ job['trigger']['week'] }}"></td>
 	</tr>
 	<tr>
-		<td>Days</td>
+		<td>{{ _('Days') }}</td>
 		<td><input type="text" name="day" value="{{ job['trigger']['day'] }}"></td>
 	</tr>
 	<tr>
-		<td>Months</td>
+		<td>{{ _('Months') }}</td>
 		<td><input type="text" name="month" value="{{ job['trigger']['month'] }}"></td>
 	</tr>
 	<tr>
-		<td>Years</td>
+		<td>{{ _('Years') }}</td>
 		<td><input type="text" name="year" value="{{ job['trigger']['year'] }}"></td>
 	</tr>
 	<tr>
-		<td>Video source</td>
+		<td>{{ _('Video source') }}</td>
 		<td><input type="text" name="uri" value="{% if job['kwargs']['uri'] %}{{ job['kwargs']['uri'] }}{% endif %}"></td>
 	</tr>
 	<tr>
-		<td>Audio source</td>
+		<td>{{ _('Audio source') }}</td>
 		<td><input type="text" name="audio" value="{% if job['kwargs']['audio'] %}{{ job['kwargs']['audio'] }}{% endif %}"></td>
 	</tr>
 	<tr>
-		<td>Repeats</td>
+		<td>{{ _('Repeats') }}</td>
 		<td><input type="text" name="repeat" value="{% if job['kwargs']['repeat'] %}{{ job['kwargs']['repeat'] }}{% endif %}"></td>
 	</tr>
 	<tr>
-		<td>Run after end</td>
+		<td>{{ _('Run after end') }}</td>
 		<td>
 			<select name="if_end_reached_run">
 				<option value=""></option>
@@ -62,34 +62,34 @@
 		</td>
 	</tr>
 		<tr>
-		<td colspan=2><strong>Showing text</strong></td>
+		<td colspan=2><strong>{{ _('Showing text') }}</strong></td>
 	</tr>
 	<tr>
-		<td>Text</td>
+		<td>{{ _('Text') }}</td>
 		<td><input type="text" name="marq_text" value="{% if job['kwargs']['marq_options'] %}{{ job['kwargs']['marq_options']['marq_text'] }}{% endif %}"></td>
 	</tr>
 	<tr>
-		<td>Color</td>
+		<td>{{ _('Color') }}</td>
 		<td><input type="text" name="marq_color" value="{% if job['kwargs']['marq_options'] %}{{ job['kwargs']['marq_options']['marq_color'] }}{% endif %}"></td>
 	</tr>
 	<tr>
-		<td>Initial position</td>
+		<td>{{ _('Initial position') }}</td>
 		<td><input type="text" name="marq_position" value="{% if job['kwargs']['marq_options'] %}{{ job['kwargs']['marq_options']['marq_position'] }}{% endif %}"></td>
 	</tr>
 	<tr>
-		<td>Horizontal offset</td>
+		<td>{{ _('Horizontal offset') }}</td>
 		<td><input type="text" name="marq_x" value="{% if job['kwargs']['marq_options'] %}{{ job['kwargs']['marq_options']['marq_x'] }}{% endif %}"></td>
 	</tr>
 	<tr>
-		<td>Vertical offset</td>
+		<td>{{ _('Vertical offset') }}</td>
 		<td><input type="text" name="marq_y" value="{% if job['kwargs']['marq_options'] %}{{ job['kwargs']['marq_options']['marq_y'] }}{% endif %}"></td>
 	</tr>
 	<tr>
-		<td>Font size</td>
+		<td>{{ _('Font size') }}</td>
 		<td><input type="text" name="marq_size" value="{% if job['kwargs']['marq_options'] %}{{ job['kwargs']['marq_options']['marq_size'] }}{% endif %}"></td>
 	</tr>
 	<tr>
-		<td colspan=2><input class="btn btn-primary" type="submit" value="Edit"> <a class="btn" href="/">Cancel</a></td>
+		<td colspan=2><input class="btn btn-primary" type="submit" value="{{ _('Save') }}"> <a class="btn" href="/">{{ _('Cancel') }}</a></td>
 	</tr>
 </table>
 </form>

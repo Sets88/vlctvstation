@@ -3,19 +3,19 @@
 <form action="/open/" method="POST">
 <table>
 	<tr>
-		<td>Video Source</td>
+		<td>{{ _('Video source') }}</td>
 		<td><input type="text" name="uri" value=""></td>
 	</tr>
 	<tr>
-		<td>Audio Source</td>
+		<td>{{ _('Audio source') }}</td>
 		<td><input type="text" name="audio" value=""></td>
 	</tr>
 	<tr>
-		<td>Repeats</td>
+		<td>{{ _('Repeats') }}</td>
 		<td><input type="text" name="repeat" value=""></td>
 	</tr>
 	<tr>
-		<td colspan=2><input type="submit" value="Открыть"></td>
+		<td colspan=2><input class="btn btn-primary" type="submit" value="{{ _('Open') }}"></td>
 	</tr>
 </table>
 </form>
