@@ -8,10 +8,12 @@ from datetime import datetime, timedelta
 import vlc
 from functools import wraps
 from auth import Auth
-from settings import settings
+from settings import Settings
 from mdict import MDict
 import logging
 logging.basicConfig()
+
+settings = Settings()
 
 app = Flask(__name__)
 
@@ -29,6 +31,7 @@ media_player.set_fullscreen(settings['fullscreen'])
 em_mediaplayer = media_player.event_manager()
 
 current_job = None
+
 
 def event_end_reached_listener(event):
     """Adds a job to scheduler on now() + 1 sec to change media"""
