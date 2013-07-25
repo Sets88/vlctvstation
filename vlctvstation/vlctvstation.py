@@ -10,6 +10,7 @@ from functools import wraps
 from auth import Auth
 from settings import Settings
 from mdict import MDict
+import gettext
 import logging
 logging.basicConfig()
 
@@ -32,6 +33,18 @@ em_mediaplayer = media_player.event_manager()
 
 current_job = None
 
+#gettext.install('vlctvstation', './translations', unicode=True)
+
+#languages = {
+    #"english" : gettext.translation('vlctvstation', './translations', languages=["en"]),
+    #"russian"  : gettext.translation('vlctvstation', './translations', languages=["ru"]),
+#}
+#languages["russian"].install()
+
+translation = gettext.translation('vlctvstation', './translations')
+
+def translate(text):
+    return translation.gettext(text).decode("utf-8")
 
 def event_end_reached_listener(event):
     """Adds a job to scheduler on now() + 1 sec to change media"""
@@ -211,7 +224,7 @@ def logout():
 @login_required
 def root():
     media = get_player_info(media_player)
-    return render_template("jobs.html", jobs=sorted(sched.get_jobs()), media=media, datetime=datetime.now(), current_job=current_job)
+    return render_template("jobs.html", jobs=sorted(sched.get_jobs()), media=media, datetime=datetime.now(), current_job=current_job, _=translate)
 
 
 @app.route("/addjob/", methods=["GET", "POST"])
@@ -221,7 +234,7 @@ def add_job():
         sched_add_job(**request.form.to_dict())
         return redirect("/")
     else:
-        return render_template("addjob.html", jobs=sched.get_jobs())
+        return render_template("addjob.html", jobs=sched.get_jobs(), _=translate)
 
 
 @app.route("/deletejob/<int:id>/")
@@ -261,7 +274,7 @@ def edit_job(id):
         #else:
             sched.unschedule_job(curr_job)
             return redirect("/")
-    return render_template("editjob.html", jobs=sched.get_jobs(), job=get_job_info(curr_job))
+    return render_template("editjob.html", jobs=sched.get_jobs(), job=get_job_info(curr_job), _=translate)
 
 
 @app.route("/play/")
@@ -304,7 +317,7 @@ def player_open():
 
         return redirect("/")
     else:
-        return render_template("open.html")
+        return render_template("open.html", _=translate)
 
 
 def main():
