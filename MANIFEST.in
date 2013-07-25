@@ -1,2 +1,3 @@
 recursive-include vlctvstation/templates *.html
 recursive-include vlctvstation/static *
+include vlctvstation/default.cfg
