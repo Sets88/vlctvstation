@@ -1,0 +1,18 @@
+{% extends "main.html" %}
+{% block content %}
+<form action="/gethash/" method="POST">
+<table>
+	<tr>
+		<td>{{ _('IP address') }}</td>
+		<td><input type="text" name="ip" value="{{ ip }}"></td>
+	</tr>
+	<tr>
+		<td>{{ _('Token') }}</td>
+		<td><input disabled type="text" value="{{ hash }}"></td>
+	</tr>
+	<tr>
+		<td colspan=2><input class="btn btn-primary" type="submit" value="{{ _('Get') }}"> <a class="btn" href="/">{{ _('Back') }}</a></td>
+	</tr>
+</table>
+</form>
+{% endblock %}
