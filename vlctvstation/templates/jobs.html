@@ -8,7 +8,7 @@
 		<td>{{ datetime }}</td>
 	</tr>
 {% for job in jobs %}
-	<tr {% if current_job %}{% if current_job.id == job.id %}class="success"{% endif %}{% endif %}>
+	<tr class="{{ job.id }} {% if current_job %}{% if current_job.id == job.id %}success{% endif %}{% endif %}">
 		<td><a href="/editjob/{{ job.id }}/">{{ job }}</a></td><td><a href="/deletejob/{{ job.id }}/" class="btn btn-danger">{{ _('Delete') }}</a> <a href="/runjob/{{ job.id }}/" class="btn btn-primary">{{ _('Run') }}</a></td>
 	</tr>
 {% endfor %}
@@ -42,4 +42,8 @@
 {% endif %}
 <br>
 <a href="/play/" class="btn btn-primary" title="{{ _('Play') }}"><i class="icon-play icon-white"></i></a> <a href="/pause/" class="btn btn-info" title="{{ _('Pause') }}"><i class="icon-pause icon-white"></i></a> <a href="/open/" class="btn btn-success"><i class="icon-folder-open icon-white" title="{{ _('Open file') }}"></i></a>
+<br><br>
+<p>
+<a href="/gethash/" class="btn btn-primary">{{ _('Get token') }}</a>
+</p>
 {% endblock %}
