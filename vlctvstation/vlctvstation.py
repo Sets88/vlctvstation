@@ -1,5 +1,6 @@
 #! /usr/bin/python
 import os
+import time
 from flask import Flask
 from flask import request, redirect, abort
 from flask import render_template
@@ -12,6 +13,7 @@ from auth import Auth
 from settings import Settings
 from mdict import MDict
 import gettext
+import json
 import logging
 logging.basicConfig()
 
@@ -34,11 +36,8 @@ em_mediaplayer = media_player.event_manager()
 
 current_job = None
 
-current_dir = os.path.dirname(os.path.abspath(__file__))
-translation = gettext.translation('vlctvstation', os.path.join(current_dir, 'translations'))
+translation = None
 
-def translate(text):
-    return translation.gettext(text).decode("utf-8")
 
 def event_end_reached_listener(event):
     """Adds a job to scheduler on now() + 1 sec to change media"""
@@ -218,7 +217,7 @@ def logout():
 @login_required
 def root():
     media = get_player_info(media_player)
-    return render_template("jobs.html", jobs=sorted(sched.get_jobs()), media=media, datetime=datetime.now(), current_job=current_job, _=translate)
+    return render_template("jobs.html", jobs=sorted(sched.get_jobs()), media=media, datetime=datetime.now(), current_job=current_job, _=translation.ugettext)
 
 
 @app.route("/addjob/", methods=["GET", "POST"])
@@ -228,7 +227,7 @@ def add_job():
         sched_add_job(**request.form.to_dict())
         return redirect("/")
     else:
-        return render_template("addjob.html", jobs=sched.get_jobs(), _=translate)
+        return render_template("addjob.html", jobs=sched.get_jobs(), _=translation.ugettext)
 
 
 @app.route("/deletejob/<int:id>/")
@@ -243,11 +242,17 @@ def delete_job(id):
 
 @app.route("/runjob/<int:id>/")
 @login_required
-def run_job(id):
+def run_job(id, http=True):
     if run_job_by_id(id):
-        return redirect("/")
+        if http:
+            return redirect("/")
+        else:
+            return True
     else:
-        abort(404)
+        if http:
+            abort(404)
+        else:
+            return False
 
 
 @app.route("/editjob/<int:id>/", methods=["GET", "POST"])
@@ -268,29 +273,35 @@ def edit_job(id):
         #else:
             sched.unschedule_job(curr_job)
             return redirect("/")
-    return render_template("editjob.html", jobs=sched.get_jobs(), job=get_job_info(curr_job), _=translate)
+    return render_template("editjob.html", jobs=sched.get_jobs(), job=get_job_info(curr_job), _=translation.ugettext)
 
 
 @app.route("/play/")
 @login_required
-def player_play():
+def player_play(http=True):
     if media_player.get_media():
         if media_player.get_state() != 4:
             media_player.set_media(media_player.get_media())
         media_player.play()
     if audio_player.get_media():
         audio_player.play()
-    return redirect("/")
+    if http:
+        return redirect("/")
+    else:
+        return True
 
 
 @app.route("/pause/")
 @login_required
-def player_pause():
+def player_pause(http=True):
     if media_player.get_media():
         media_player.pause()
     if audio_player.get_media():
         audio_player.pause()
-    return redirect("/")
+    if http:
+        return redirect("/")
+    else:
+        return True
 
 
 @app.route("/open/", methods=["GET", "POST"])
@@ -311,10 +322,92 @@ def player_open():
 
         return redirect("/")
     else:
-        return render_template("open.html", _=translate)
+        return render_template("open.html", _=translation.ugettext)
+
+
+@app.route("/gethash/", methods=["GET", "POST"])
+@login_required
+def get_hash():
+    if request.method == "POST":
+        hashh = auth.get_ip_hash(request.form['ip'])
+        return render_template("gethash.html", ip=request.form['ip'],  hash=hashh, _=translation.ugettext)
+    else:
+        return render_template("gethash.html", _=translation.ugettext)
+
+######### AJAX
+
+
+@app.route("/ajax/pause/")
+@login_required
+def ajax_pause():
+    res = {}
+    if player_pause(False):
+        time.sleep(1)
+        res['result'] = 1
+        res['state'] = media_player.get_state().value
+    else:
+        res['result'] = 0
+    return json.dumps(res)
+
+
+@app.route("/ajax/play/")
+@login_required
+def ajax_play():
+    res = {}
+    if player_play(False):
+        time.sleep(1)
+        res['result'] = 1
+        res['state'] = media_player.get_state().value
+    else:
+        res['result'] = 0
+    return json.dumps(res)
+
+
+@app.route("/ajax/run/<int:id>/")
+@login_required
+def ajax_run(id):
+    res = {}
+    if run_job(id, False):
+        time.sleep(1)
+        res['result'] = 1
+        res['state'] = media_player.get_state().value
+        if media_player.get_media():
+            res['uri'] = media_player.get_media().get_mrl()
+        if current_job:
+            res['jobid'] = current_job.id
+    else:
+        res['result'] = 0
+    return json.dumps(res)
+
+
+
+############ API
+
+
+@app.route("/api/<token>/status/")
+def api_status(token):
+    if auth.check_ip_hash(token, request.remote_addr):
+        res = {}
+        res['state'] = media_player.get_state().value
+        if media_player.get_media():
+            res['uri'] = media_player.get_media().get_mrl()
+        if current_job:
+            res['jobid'] = current_job.id
+        if current_job:
+            res['jobname'] = current_job.name
+        return json.dumps(res)
+    abort(404)
 
 
 def main():
+    global translation
+
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    try:
+        translation = gettext.translation('vlctvstation', os.path.join(current_dir, 'translations'))
+    except (IOError):
+        translation = gettext.translation('vlctvstation', os.path.join(current_dir, 'translations'), languages=["en_GB"])
+
     sched.start()
     sched.add_jobstore(ShelveJobStore(settings['dbfile']), 'shelve')
     sched.add_listener(job_executed_listener, EVENT_JOB_EXECUTED | EVENT_JOB_ERROR)
