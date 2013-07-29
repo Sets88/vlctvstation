@@ -422,6 +422,7 @@ def main():
     run_last_job(sched.get_jobs())
 
     em_mediaplayer.event_attach(vlc.EventType.MediaPlayerEndReached, event_end_reached_listener)
+    em_mediaplayer.event_attach(vlc.EventType.MediaPlayerEncounteredError, event_end_reached_listener)
 
     app.run(host=settings['host'], port=settings['port'])
 
