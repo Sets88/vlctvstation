@@ -51,6 +51,10 @@
 		<td><input type="text" name="repeat" value="{% if job['kwargs']['repeat'] %}{{ job['kwargs']['repeat'] }}{% endif %}"></td>
 	</tr>
 	<tr>
+		<td>{{ _('Aspect ratio') }}</td>
+		<td><input type="text" name="aspect" value="{% if job['kwargs']['media_options'] and job['kwargs']['media_options']['aspect'] %}{{ job['kwargs']['media_options']['aspect'] }}{% endif %}"></td>
+	</tr>
+	<tr>
 		<td>{{ _('Run after end') }}</td>
 		<td>
 			<select name="if_end_reached_run">
@@ -66,27 +70,27 @@
 	</tr>
 	<tr>
 		<td>{{ _('Text') }}</td>
-		<td><input type="text" name="marq_text" value="{% if job['kwargs']['marq_options'] %}{{ job['kwargs']['marq_options']['marq_text'] }}{% endif %}"></td>
+		<td><input type="text" name="marq_text" value="{% if job['kwargs']['media_options'] %}{{ job['kwargs']['media_options']['marq_text'] }}{% endif %}"></td>
 	</tr>
 	<tr>
 		<td>{{ _('Color') }}</td>
-		<td><input type="text" name="marq_color" value="{% if job['kwargs']['marq_options'] %}{{ job['kwargs']['marq_options']['marq_color'] }}{% endif %}"></td>
+		<td><input type="text" name="marq_color" value="{% if job['kwargs']['media_options'] %}{{ job['kwargs']['media_options']['marq_color'] }}{% endif %}"></td>
 	</tr>
 	<tr>
 		<td>{{ _('Initial position') }}</td>
-		<td><input type="text" name="marq_position" value="{% if job['kwargs']['marq_options'] %}{{ job['kwargs']['marq_options']['marq_position'] }}{% endif %}"></td>
+		<td><input type="text" name="marq_position" value="{% if job['kwargs']['media_options'] %}{{ job['kwargs']['media_options']['marq_position'] }}{% endif %}"></td>
 	</tr>
 	<tr>
 		<td>{{ _('Horizontal offset') }}</td>
-		<td><input type="text" name="marq_x" value="{% if job['kwargs']['marq_options'] %}{{ job['kwargs']['marq_options']['marq_x'] }}{% endif %}"></td>
+		<td><input type="text" name="marq_x" value="{% if job['kwargs']['media_options'] %}{{ job['kwargs']['media_options']['marq_x'] }}{% endif %}"></td>
 	</tr>
 	<tr>
 		<td>{{ _('Vertical offset') }}</td>
-		<td><input type="text" name="marq_y" value="{% if job['kwargs']['marq_options'] %}{{ job['kwargs']['marq_options']['marq_y'] }}{% endif %}"></td>
+		<td><input type="text" name="marq_y" value="{% if job['kwargs']['media_options'] %}{{ job['kwargs']['media_options']['marq_y'] }}{% endif %}"></td>
 	</tr>
 	<tr>
 		<td>{{ _('Font size') }}</td>
-		<td><input type="text" name="marq_size" value="{% if job['kwargs']['marq_options'] %}{{ job['kwargs']['marq_options']['marq_size'] }}{% endif %}"></td>
+		<td><input type="text" name="marq_size" value="{% if job['kwargs']['media_options'] %}{{ job['kwargs']['media_options']['marq_size'] }}{% endif %}"></td>
 	</tr>
 	<tr>
 		<td colspan=2><input class="btn btn-primary" type="submit" value="{{ _('Save') }}"> <a class="btn" href="/">{{ _('Cancel') }}</a></td>
