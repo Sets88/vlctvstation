@@ -49,7 +49,7 @@ def event_end_reached_listener(event):
             sched.add_date_job(change_media_sources, datetime.now()+timedelta(seconds=1), kwargs=new_job.kwargs, name="temporary_system_job")
             #run_job_by_name(current_job.kwargs['if_end_reached_run'])
 
-def change_media_sources(uri, repeat=0, audio=None, if_end_reached_run=None, marq_options=None):
+def change_media_sources(uri, repeat=0, audio=None, if_end_reached_run=None, media_options=None):
     options = []
     if audio is not None:
         options.append("no-audio")
@@ -57,28 +57,34 @@ def change_media_sources(uri, repeat=0, audio=None, if_end_reached_run=None, mar
         options.append("input-repeat=%d" % repeat)
 
     # Marquee
-    if marq_options and 'marq_text' in marq_options:
+    if media_options and 'marq_text' in media_options:
         media_player.video_set_marquee_int(vlc.VideoMarqueeOption.Enable, 1)
-        media_player.video_set_marquee_string(vlc.VideoMarqueeOption.Text, marq_options['marq_text'])
-        if 'marq_color' in marq_options:
-            media_player.video_set_marquee_int(vlc.VideoMarqueeOption.Color, marq_options['marq_color'])
-        if 'marq_position' in marq_options:
-            media_player.video_set_marquee_int(vlc.VideoMarqueeOption.Position, marq_options['marq_position'])
-        if 'marq_x' in marq_options:
-            media_player.video_set_marquee_int(vlc.VideoMarqueeOption.marquee_X, marq_options['marq_x'])
-        if 'marq_y' in marq_options:
-            media_player.video_set_marquee_int(vlc.VideoMarqueeOption.marquee_Y, marq_options['marq_y'])
-        if 'marq_size' in marq_options:
-            media_player.video_set_marquee_int(vlc.VideoMarqueeOption.Size, marq_options['marq_size'])        
+        media_player.video_set_marquee_string(vlc.VideoMarqueeOption.Text, media_options['marq_text'])
+        if 'marq_color' in media_options:
+            media_player.video_set_marquee_int(vlc.VideoMarqueeOption.Color, media_options['marq_color'])
+        if 'marq_position' in media_options:
+            media_player.video_set_marquee_int(vlc.VideoMarqueeOption.Position, media_options['marq_position'])
+        if 'marq_x' in media_options:
+            media_player.video_set_marquee_int(vlc.VideoMarqueeOption.marquee_X, media_options['marq_x'])
+        if 'marq_y' in media_options:
+            media_player.video_set_marquee_int(vlc.VideoMarqueeOption.marquee_Y, media_options['marq_y'])
+        if 'marq_size' in media_options:
+            media_player.video_set_marquee_int(vlc.VideoMarqueeOption.Size, media_options['marq_size'])        
     else:
         media_player.video_set_marquee_int(vlc.VideoMarqueeOption.Enable, 0)
 
     media = vlc_instance.media_new(uri)
     for option in options:
-        media.add_options(option)
+        media.add_option(option)
 
     audio_player.stop()
     audio_player.set_media(None)
+    media_player.stop()
+
+    # Dont now how to solve, probably a bug or feature in vlc, you cant set an aspect-crop if media not stopped
+    if media_options and media_options['aspect']:
+        media_player.video_set_crop_geometry(media_options['aspect'])
+
     media_player.set_media(media)
 
     media_player.play()
@@ -134,22 +140,22 @@ def get_job_by_name(name):
 def sched_add_job(**kwargs):
     new_kwargs = {'hour': None, 'day_of_week': None, 'week': None, 'day': None, 'month': None, 'year': None, 'name': None}
     func_kwargs = {'audio': None, 'repeat': None, 'if_end_reached_run': None, 'uri': None}
-    marq_options = {}
+    media_options = {}
 
     new_kwargs = MDict({'second': str, 'minute': str, 'hour': str, 'day_of_week': str, 'week': str, 'day': str, 'month': str, 'year': str, 'name': str, 'jobstore': str, 'kwargs': dict})
-    func_kwargs = MDict({'audio': str, 'repeat': int, 'if_end_reached_run': str, 'uri': str, 'marq_options': dict})
-    marq_options = MDict({'marq_text': str, 'marq_color': int, 'marq_position': int, 'marq_x': int, 'marq_y': int, 'marq_size': int})
+    func_kwargs = MDict({'audio': str, 'repeat': int, 'if_end_reached_run': str, 'uri': str, 'media_options': dict})
+    media_options = MDict({'marq_text': str, 'marq_color': int, 'marq_position': int, 'marq_x': int, 'marq_y': int, 'marq_size': int, 'aspect': str})
     
     new_kwargs.update(kwargs)
     func_kwargs.update(kwargs)
-    marq_options.update(kwargs)
+    media_options.update(kwargs)
 
-    func_kwargs['marq_options'] = dict(marq_options)
+    func_kwargs['media_options'] = dict(media_options)
     new_kwargs['jobstore'] = 'shelve'
     new_kwargs['kwargs'] = dict(func_kwargs)
 
     # if nothing filled, set cron, to far, far future
-    if new_kwargs.has_not_a_single_item(['hour', 'day_of_week', 'week', 'day', 'month','year']):
+    if not new_kwargs.has_not_a_single_item(['second', 'minute' ,'hour', 'day_of_week', 'week', 'day', 'month','year']):
         new_kwargs['year'] = '3000'
 
     sched.add_cron_job(change_media_sources, **dict(new_kwargs))
