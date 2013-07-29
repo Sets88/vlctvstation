@@ -72,6 +72,7 @@ def change_media_sources(uri, repeat=0, audio=None, if_end_reached_run=None, med
             media_player.video_set_marquee_int(vlc.VideoMarqueeOption.Size, media_options['marq_size'])        
     else:
         media_player.video_set_marquee_int(vlc.VideoMarqueeOption.Enable, 0)
+        media_player.video_set_marquee_string(vlc.VideoMarqueeOption.Text, "")
 
     media = vlc_instance.media_new(uri)
     for option in options:
