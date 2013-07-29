@@ -82,7 +82,7 @@ def change_media_sources(uri, repeat=0, audio=None, if_end_reached_run=None, med
     media_player.stop()
 
     # Dont now how to solve, probably a bug or feature in vlc, you cant set an aspect-crop if media not stopped
-    if media_options and media_options['aspect']:
+    if media_options and 'aspect' in media_options:
         media_player.video_set_crop_geometry(media_options['aspect'])
 
     media_player.set_media(media)
