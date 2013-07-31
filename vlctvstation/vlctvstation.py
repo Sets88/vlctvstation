@@ -2,7 +2,7 @@
 import os
 import time
 from flask import Flask
-from flask import request, redirect, abort
+from flask import request, redirect, abort, session
 from flask import render_template
 from apscheduler.scheduler import Scheduler, EVENT_JOB_EXECUTED, EVENT_JOB_ERROR
 from apscheduler.jobstores.shelve_store import ShelveJobStore
@@ -190,7 +190,9 @@ def get_player_info(player):
 def login_required(func):
     @wraps(func)
     def wraper(*args, **kwargs):
-        if auth.is_logged():
+        login = auth.is_logged()
+        if login:
+            session['login'] = login
             return func(*args, **kwargs)
         else:
             return redirect("/login/")
@@ -200,11 +202,24 @@ def login_required(func):
 def logged_in_or_404(func):
     @wraps(func)
     def wraper(*args, **kwargs):
-        if auth.is_logged():
+        login = auth.is_logged()
+        if login:
+            session['login'] = login
             return func(*args, **kwargs)
         else:
             return abort(404)
     return wraper
+
+def require_permission(permission):
+    def decorator(func):
+        @wraps(func)
+        def wraper(*args, **kwargs):
+            if settings.has_permissions(permission, auth.is_logged()):
+                return func(*args, **kwargs)
+            else:
+                return abort(404)
+        return wraper
+    return decorator
 
 # MAIN #################
 
@@ -223,12 +238,14 @@ def logout():
 @app.route("/")
 @login_required
 def root():
+    perms = settings.get_permissions(auth.is_logged())
     media = get_player_info(media_player)
-    return render_template("jobs.html", jobs=sorted(sched.get_jobs()), media=media, datetime=datetime.now(), current_job=current_job, _=translation.ugettext)
+    return render_template("jobs.html", jobs=sorted(sched.get_jobs()), media=media, datetime=datetime.now(), current_job=current_job, _=translation.ugettext, perms=perms)
 
 
 @app.route("/addjob/", methods=["GET", "POST"])
 @login_required
+@require_permission("add_jobs")
 def add_job():
     if request.method == "POST":
         sched_add_job(**request.form.to_dict())
@@ -239,6 +256,7 @@ def add_job():
 
 @app.route("/deletejob/<int:id>/")
 @login_required
+@require_permission("delete_jobs")
 def delete_job(id):
     for job in sched.get_jobs():
         if job.id == str(id):
@@ -249,6 +267,7 @@ def delete_job(id):
 
 @app.route("/runjob/<int:id>/")
 @login_required
+@require_permission("run_jobs")
 def run_job(id, http=True):
     if run_job_by_id(id):
         if http:
@@ -264,6 +283,7 @@ def run_job(id, http=True):
 
 @app.route("/editjob/<int:id>/", methods=["GET", "POST"])
 @login_required
+@require_permission("edit_jobs")
 def edit_job(id):
     curr_job = None
     for job in sched.get_jobs():
@@ -285,6 +305,7 @@ def edit_job(id):
 
 @app.route("/play/")
 @login_required
+@require_permission("run_jobs")
 def player_play(http=True):
     if media_player.get_media():
         if media_player.get_state() != 4:
@@ -300,6 +321,7 @@ def player_play(http=True):
 
 @app.route("/pause/")
 @login_required
+@require_permission("run_jobs")
 def player_pause(http=True):
     if media_player.get_media():
         media_player.pause()
@@ -313,6 +335,7 @@ def player_pause(http=True):
 
 @app.route("/open/", methods=["GET", "POST"])
 @login_required
+@require_permission("run_custom_jobs")
 def player_open():
     if request.method == "POST":
         kwargs = {}
@@ -334,6 +357,7 @@ def player_open():
 
 @app.route("/gethash/", methods=["GET", "POST"])
 @login_required
+@require_permission("get_token")
 def get_hash():
     if request.method == "POST":
         hashh = auth.get_ip_hash(request.form['ip'])
@@ -346,6 +370,7 @@ def get_hash():
 
 @app.route("/ajax/pause/")
 @login_required
+@require_permission("run_jobs")
 def ajax_pause():
     res = {}
     if player_pause(False):
@@ -359,6 +384,7 @@ def ajax_pause():
 
 @app.route("/ajax/play/")
 @login_required
+@require_permission("run_jobs")
 def ajax_play():
     res = {}
     if player_play(False):
@@ -372,6 +398,7 @@ def ajax_play():
 
 @app.route("/ajax/run/<int:id>/")
 @login_required
+@require_permission("run_jobs")
 def ajax_run(id):
     res = {}
     if run_job(id, False):
