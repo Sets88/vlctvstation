@@ -2,7 +2,7 @@
 import os
 import time
 from flask import Flask
-from flask import request, redirect, abort, session
+from flask import request, redirect, abort, session, Response
 from flask import render_template
 from apscheduler.scheduler import Scheduler, EVENT_JOB_EXECUTED, EVENT_JOB_ERROR
 from apscheduler.jobstores.shelve_store import ShelveJobStore
@@ -364,6 +364,29 @@ def get_hash():
         return render_template("gethash.html", ip=request.form['ip'],  hash=hashh, _=translation.ugettext)
     else:
         return render_template("gethash.html", _=translation.ugettext)
+
+
+@app.route("/getscreenshot.png")
+@login_required
+def get_screenshot():
+    import gtk.gdk
+    from StringIO import StringIO
+
+    iobuf = StringIO()
+
+    def save_img_to_buf(text):
+        iobuf.write(text)
+
+    win = gtk.gdk.get_default_root_window()
+    ssize = win.get_size()
+    pbuf = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, False, 8, ssize[0], ssize[1])
+    pbuf = pbuf.get_from_drawable(win, win.get_colormap(), 0, 0, 0, 0, ssize[0], ssize[1])
+    pbuf.save_to_callback(save_img_to_buf, "png")
+    if iobuf.len>0:
+        iobuf.flush()
+        return Response(iobuf.getvalue(), mimetype="image/png")
+    else:
+        abort(404)
 
 ######### AJAX
 
