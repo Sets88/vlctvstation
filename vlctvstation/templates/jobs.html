@@ -33,12 +33,21 @@
 		<p class="text-info"><strong>{{ _('Buffering') }}: </strong></p>
 	{% elif media['state'] == 3 %}
 		<p class="text-success"><strong>{{ _('Playing') }}: </strong></p>
+		<div class="progress progress-striped">
+  			<div class="bar" style="width: {{ get_percents(player.get_position()) }}%;"></div>
+		</div>
 	{% elif media['state'] == 4 %}
 		<p class="text-warning"><strong>{{ _('Paused') }}: </strong></p>
+		<div class="progress progress-striped">
+  			<div class="bar" style="width: {{ get_percents(player.get_position()) }}%;"></div>
+		</div>
 	{% elif media['state'] == 5 %}
 		<p class="muted"><strong>{{ _('Stopped') }}: </strong></p>
 	{% elif media['state'] == 6 %}
 		<p class="text-warning"><strong>{{ _('Ended') }}: </strong></p>
+		<div class="progress progress-striped">
+  			<div class="bar" style="width: 100%;"></div>
+		</div>
 	{% elif media['state'] == 7 %}
 		<p class="text-error"><strong>{{ _('Error') }}: </strong></p>
 	{% else %}
