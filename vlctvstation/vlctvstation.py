@@ -221,6 +221,13 @@ def require_permission(permission):
         return wraper
     return decorator
 
+# Content Processor #############
+@app.context_processor
+def content_processor():
+    def get_percents(val):
+        return int(float(val)*100)
+    return dict(get_percents=get_percents)
+
 # MAIN #################
 
 
@@ -240,7 +247,7 @@ def logout():
 def root():
     perms = settings.get_permissions(auth.is_logged())
     media = get_player_info(media_player)
-    return render_template("jobs.html", jobs=sorted(sched.get_jobs()), media=media, datetime=datetime.now(), current_job=current_job, _=translation.ugettext, perms=perms)
+    return render_template("jobs.html", jobs=sorted(sched.get_jobs()), media=media, datetime=datetime.now(), current_job=current_job, _=translation.ugettext, perms=perms, player=media_player)
 
 
 @app.route("/addjob/", methods=["GET", "POST"])
