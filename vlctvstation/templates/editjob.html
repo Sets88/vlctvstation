@@ -1,100 +1,155 @@
 {% extends "main.html" %}
 {% block content %}
-<form action="" method="POST">
-<table>
-	<tr>
-		<td>{{ _('Name') }}</td>
-		<td><input type="text" name="name" value="{{ job['name'] }}"></td>
-	</tr>
-	<tr>
-		<td>{{ _('Seconds') }}</td>
-		<td><input type="text" name="second" value="{{ job['trigger']['second'] }}"></td>
-	</tr>
-	<tr>
-		<td>{{ _('Minutes') }}</td>
-		<td><input type="text" name="minute" value="{{ job['trigger']['minute'] }}"></td>
-	</tr>
-	<tr>
-		<td>{{ _('Hours') }}</td>
-		<td><input type="text" name="hour" value="{{ job['trigger']['hour'] }}"></td>
-	</tr>
-	<tr>
-		<td>{{ _('Days of week') }}</td>
-		<td><input type="text" name="day_of_week" value="{{ job['trigger']['day_of_week'] }}"></td>
-	</tr>
-	<tr>
-		<td>{{ _('Weeks') }}</td>
-		<td><input type="text" name="week" value="{{ job['trigger']['week'] }}"></td>
-	</tr>
-	<tr>
-		<td>{{ _('Days') }}</td>
-		<td><input type="text" name="day" value="{{ job['trigger']['day'] }}"></td>
-	</tr>
-	<tr>
-		<td>{{ _('Months') }}</td>
-		<td><input type="text" name="month" value="{{ job['trigger']['month'] }}"></td>
-	</tr>
-	<tr>
-		<td>{{ _('Years') }}</td>
-		<td><input type="text" name="year" value="{{ job['trigger']['year'] }}"></td>
-	</tr>
-	<tr>
-		<td>{{ _('Video source') }}</td>
-		<td><input type="text" name="uri" value="{% if job['kwargs']['uri'] %}{{ job['kwargs']['uri'] }}{% endif %}"></td>
-	</tr>
-	<tr>
-		<td>{{ _('Audio source') }}</td>
-		<td><input type="text" name="audio" value="{% if job['kwargs']['audio'] %}{{ job['kwargs']['audio'] }}{% endif %}"></td>
-	</tr>
-	<tr>
-		<td>{{ _('Repeats') }}</td>
-		<td><input type="text" name="repeat" value="{% if job['kwargs']['repeat'] %}{{ job['kwargs']['repeat'] }}{% endif %}"></td>
-	</tr>
-	<tr>
-		<td>{{ _('Aspect ratio') }}</td>
-		<td><input type="text" name="aspect" value="{% if job['kwargs']['media_options'] and job['kwargs']['media_options']['aspect'] %}{{ job['kwargs']['media_options']['aspect'] }}{% endif %}"></td>
-	</tr>
-	<tr>
-		<td>{{ _('Run after end') }}</td>
-		<td>
-			<select name="if_end_reached_run">
-				<option value=""></option>
-				{% for ljob in jobs %}
-					<option value="{{ ljob.name }}" {% if job['kwargs']['if_end_reached_run'] == ljob.name %}selected{% endif %}>{{ ljob.name }}</option>
-				{% endfor %}
-			</select>
-		</td>
-	</tr>
-		<tr>
-		<td colspan=2><strong>{{ _('Showing text') }}</strong></td>
-	</tr>
-	<tr>
-		<td>{{ _('Text') }}</td>
-		<td><input type="text" name="marq_text" value="{% if job['kwargs']['media_options'] %}{{ job['kwargs']['media_options']['marq_text'] }}{% endif %}"></td>
-	</tr>
-	<tr>
-		<td>{{ _('Color') }}</td>
-		<td><input type="text" name="marq_color" value="{% if job['kwargs']['media_options'] %}{{ job['kwargs']['media_options']['marq_color'] }}{% endif %}"></td>
-	</tr>
-	<tr>
-		<td>{{ _('Initial position') }}</td>
-		<td><input type="text" name="marq_position" value="{% if job['kwargs']['media_options'] %}{{ job['kwargs']['media_options']['marq_position'] }}{% endif %}"></td>
-	</tr>
-	<tr>
-		<td>{{ _('Horizontal offset') }}</td>
-		<td><input type="text" name="marq_x" value="{% if job['kwargs']['media_options'] %}{{ job['kwargs']['media_options']['marq_x'] }}{% endif %}"></td>
-	</tr>
-	<tr>
-		<td>{{ _('Vertical offset') }}</td>
-		<td><input type="text" name="marq_y" value="{% if job['kwargs']['media_options'] %}{{ job['kwargs']['media_options']['marq_y'] }}{% endif %}"></td>
-	</tr>
-	<tr>
-		<td>{{ _('Font size') }}</td>
-		<td><input type="text" name="marq_size" value="{% if job['kwargs']['media_options'] %}{{ job['kwargs']['media_options']['marq_size'] }}{% endif %}"></td>
-	</tr>
-	<tr>
-		<td colspan=2><input class="btn btn-primary" type="submit" value="{{ _('Save') }}"> <a class="btn" href="/">{{ _('Cancel') }}</a></td>
-	</tr>
-</table>
+<br>
+<form action="" method="POST" class="form-horizontal">
+<center>
+	<div class="form-group">
+		<label for="inputEmail" class="col-lg-3 control-label">{{ _('Name') }}</label>
+		<div class="col-lg-8">
+			<input type="text" name="name" value="{{ job['name'] }}" class="form-control" placeholder="{{ _('Name') }}">
+			</div>
+	</div>
+	<div class="panel panel-info" style="width:90%">
+		<div class="panel-heading">
+			<strong>{{ _('Date and time') }}</strong>
+		</div>
+		<div class="form-group">
+			<label for="inputEmail" class="col-lg-3 control-label">{{ _('Seconds') }}</label>
+			<div class="col-lg-8">
+				<input type="text" name="second" value="{{ job['trigger']['second'] }}" class="form-control" placeholder="{{ _('Seconds') }}">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="inputEmail" class="col-lg-3 control-label">{{ _('Minutes') }}</label>
+			<div class="col-lg-8">
+				<input type="text" name="minute" value="{{ job['trigger']['minute'] }}" class="form-control" placeholder="{{ _('Minutes') }}">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="inputEmail" class="col-lg-3 control-label">{{ _('Hours') }}</label>
+			<div class="col-lg-8">
+				<input type="text" name="hour" value="{{ job['trigger']['hour'] }}" class="form-control" placeholder="{{ _('Hours') }}">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="inputEmail" class="col-lg-3 control-label">{{ _('Days of week') }}</label>
+			<div class="col-lg-8">
+				<input type="text" name="day_of_week" value="{{ job['trigger']['day_of_week'] }}" class="form-control" placeholder="{{ _('Days of week') }}">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="inputEmail" class="col-lg-3 control-label">{{ _('Weeks') }}</label>
+			<div class="col-lg-8">
+				<input type="text" name="week" value="{{ job['trigger']['week'] }}" class="form-control" placeholder="{{ _('Weeks') }}">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="inputEmail" class="col-lg-3 control-label">{{ _('Days') }}</label>
+			<div class="col-lg-8">
+				<input type="text" name="day" value="{{ job['trigger']['day'] }}" class="form-control" placeholder="{{ _('Days') }}">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="inputEmail" class="col-lg-3 control-label">{{ _('Months') }}</label>
+			<div class="col-lg-8">
+				<input type="text" name="month" value="{{ job['trigger']['month'] }}" class="form-control" placeholder="{{ _('Months') }}">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="inputEmail" class="col-lg-3 control-label">{{ _('Years') }}</label>
+			<div class="col-lg-8">
+				<input type="text" name="year" value="{{ job['trigger']['year'] }}" class="form-control" placeholder="{{ _('Years') }}">
+			</div>
+		</div>
+	</div>
+	<div class="panel panel-warning" style="width:90%">
+		<div class="panel-heading">
+			<strong>{{ _('Media options') }}</strong>
+		</div>
+		<div class="form-group">
+			<label for="inputEmail" class="col-lg-3 control-label">{{ _('Video source') }}</label>
+			<div class="col-lg-8">
+				<input type="text" name="uri" value="{% if job['kwargs']['uri'] %}{{ job['kwargs']['uri'] }}{% endif %}" class="form-control" placeholder="{{ _('Video source') }}">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="inputEmail" class="col-lg-3 control-label">{{ _('Audio source') }}</label>
+			<div class="col-lg-8">
+				<input type="text" name="audio" value="{% if job['kwargs']['audio'] %}{{ job['kwargs']['audio'] }}{% endif %}" class="form-control" placeholder="{{ _('Audio source') }}">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="inputEmail" class="col-lg-3 control-label">{{ _('Repeats') }}</label>
+			<div class="col-lg-8">
+				<input type="text" name="repeat" value="{% if job['kwargs']['repeat'] %}{{ job['kwargs']['repeat'] }}{% endif %}" class="form-control" placeholder="{{ _('Repeats') }}">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="inputEmail" class="col-lg-3 control-label">{{ _('Aspect ratio') }}</label>
+			<div class="col-lg-8">
+				<input type="text" name="aspect" value="{% if job['kwargs']['media_options'] and job['kwargs']['media_options']['aspect'] %}{{ job['kwargs']['media_options']['aspect'] }}{% endif %}" class="form-control" placeholder="{{ _('Aspect ratio') }}">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="inputEmail" class="col-lg-3 control-label">{{ _('Run after end') }}</label>
+			<div class="col-lg-8">
+				<select name="if_end_reached_run" class="form-control">
+					<option value=""></option>
+					{% for ljob in jobs %}
+						<option value="{{ ljob.name }}" {% if job['kwargs']['if_end_reached_run'] == ljob.name %}selected{% endif %}>{{ ljob.name }}</option>
+					{% endfor %}
+				</select>
+			</div>
+		</div>
+	</div>
+	<div class="panel panel-success" style="width:90%">
+		<div class="panel-heading">
+			<strong>{{ _('Showing text') }}</strong>
+		</div>
+		<div class="form-group">
+			<label for="inputEmail" class="col-lg-3 control-label">{{ _('Text') }}</label>
+			<div class="col-lg-8">
+				<input type="text" name="marq_text" value="{% if job['kwargs']['media_options'] %}{{ job['kwargs']['media_options']['marq_text'] }}{% endif %}" class="form-control" placeholder="{{ _('Text') }}">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="inputEmail" class="col-lg-3 control-label">{{ _('Color') }}</label>
+			<div class="col-lg-8">
+				<input type="text" name="marq_color" value="{% if job['kwargs']['media_options'] %}{{ job['kwargs']['media_options']['marq_color'] }}{% endif %}" class="form-control" placeholder="{{ _('Color') }}">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="inputEmail" class="col-lg-3 control-label">{{ _('Initial position') }}</label>
+			<div class="col-lg-8">
+				<input type="text" name="marq_position" value="{% if job['kwargs']['media_options'] %}{{ job['kwargs']['media_options']['marq_position'] }}{% endif %}" class="form-control" placeholder="{{ _('Initial position') }}">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="inputEmail" class="col-lg-3 control-label">{{ _('Horizontal offset') }}</label>
+			<div class="col-lg-8">
+				<input type="text" name="marq_x" value="{% if job['kwargs']['media_options'] %}{{ job['kwargs']['media_options']['marq_x'] }}{% endif %}" class="form-control" placeholder="{{ _('Horizontal offset') }}">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="inputEmail" class="col-lg-3 control-label">{{ _('Vertical offset') }}</label>
+			<div class="col-lg-8">
+				<input type="text" name="marq_y" value="{% if job['kwargs']['media_options'] %}{{ job['kwargs']['media_options']['marq_y'] }}{% endif %}" class="form-control" placeholder="{{ _('Vertical offset') }}">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="inputEmail" class="col-lg-3 control-label">{{ _('Font size') }}</label>
+			<div class="col-lg-8">
+				<input type="text" name="marq_size" value="{% if job['kwargs']['media_options'] %}{{ job['kwargs']['media_options']['marq_size'] }}{% endif %}" class="form-control" placeholder="{{ _('Font size') }}">
+			</div>
+		</div>
+	</div>
+</center>
+<span class="pull-right">
+	<input class="btn btn-primary" type="submit" value="{{ _('Save') }}"> <a class="btn" href="/">{{ _('Cancel') }}</a>
+</span>
 </form>
+<br>
+<br>
+<br>
+<br>
 {% endblock %}

@@ -1,12 +1,21 @@
 {% extends "main.html" %}
 {% block content %}
 {% if jobs %}
-<table class="table table-hover">
+<div class="navbar navbar-inverse" style="background-color:#00146B">
+	<div class="container">
+	{% if "get_token" in perms %}
+	<a href="/gethash/" class="navbar-brand">{{ _('Get token') }}</a>
+	{% endif %}
+	<a href="/getscreenshot.png" class="navbar-brand">{{ _('Take screenshot') }}</a>
+	</div>
+</div>
 
-	<tr>
-		<td><strong>{{ _('Jobs') }}:</strong></td>
-		<td>{{ datetime }}</td>
-	</tr>
+<center>
+<div class="panel panel-primary" style="width: 90%">
+<div class="panel-heading" align="left">
+          <h3 class="panel-title">{{ _('Jobs') }}<span class="pull-right">{{ datetime }}</span></h3>
+</div>
+ <table class="table table-hover">
 {% for job in jobs %}
 	<tr class="{{ job.id }} {% if current_job %}{% if current_job.id == job.id %}success{% endif %}{% endif %}">
 		<td>
@@ -15,7 +24,7 @@
 				{{ job }}
 			{% endif %}
 		</td>
-		<td>
+		<td align="right">
 			{% if "delete_jobs" in perms %}<a href="/deletejob/{{ job.id }}/" class="btn btn-danger">{{ _('Delete') }}</a>{% endif %}
 			{% if "run_jobs" in perms %}<a href="/runjob/{{ job.id }}/" class="btn btn-primary">{{ _('Run') }}</a>{% endif %}
 		</td>
@@ -23,35 +32,62 @@
 {% endfor %}
 </table>
 {% endif %}
-{% if "add_jobs" in perms %}<a href="/addjob/" class="btn btn-primary">{{ _('Add job') }}</a>
+{% if "add_jobs" in perms %}<span class="pull-right"><a href="/addjob/" class="btn btn-primary">{{ _('Add job') }}</a></span>
 <br><br>
 {% endif %}
+</div>
+</center>
+<center>
 {% if media %}
 	{% if media['state'] == 1 %}
-		<p class="text-info"><strong>{{ _('Opening') }}: </strong></p>
+		<div class="panel panel-warning" style="width: 90%">
+		<div class="panel-heading">	
+			<strong>{{ _('Opening') }} </strong>
+		</div>
 	{% elif media['state'] == 2 %}
-		<p class="text-info"><strong>{{ _('Buffering') }}: </strong></p>
+		<div class="panel panel-warning" style="width: 90%">
+		<div class="panel-heading">	
+			<strong>{{ _('Buffering') }} </strong>
+		</div>
 	{% elif media['state'] == 3 %}
-		<p class="text-success"><strong>{{ _('Playing') }}: </strong></p>
+		<div class="panel panel-primary" style="width: 90%">
+		<div class="panel-heading">	
+			<strong>{{ _('Playing') }} </strong>
+		</div>
 		<div class="progress progress-striped">
-  			<div class="bar" style="width: {{ get_percents(player.get_position()) }}%;"></div>
+  			<div class="progress-bar progress-bar-info" style="width: {{ get_percents(player.get_position()) }}%;"></div>
 		</div>
 	{% elif media['state'] == 4 %}
-		<p class="text-warning"><strong>{{ _('Paused') }}: </strong></p>
+		<div class="panel panel-success" style="width: 90%">
+		<div class="panel-heading">	
+			<strong>{{ _('Paused') }} </strong>
+		</div>
 		<div class="progress progress-striped">
-  			<div class="bar" style="width: {{ get_percents(player.get_position()) }}%;"></div>
+  			<div class="progress-bar progress-bar-info" style="width: {{ get_percents(player.get_position()) }}%;"></div>
 		</div>
 	{% elif media['state'] == 5 %}
-		<p class="muted"><strong>{{ _('Stopped') }}: </strong></p>
+		<div class="panel panel-info" style="width: 90%">
+		<div class="panel-heading">	
+			<strong>{{ _('Stopped') }} </strong>
+		</div>
 	{% elif media['state'] == 6 %}
-		<p class="text-warning"><strong>{{ _('Ended') }}: </strong></p>
+		<div class="panel panel-danger" style="width: 90%">
+		<div class="panel-heading">	
+			<strong>{{ _('Ended') }} </strong>
+		</div>
 		<div class="progress progress-striped">
-  			<div class="bar" style="width: 100%;"></div>
+  			<div class="progress-bar progress-bar-info" style="width: 100%;"></div>
 		</div>
 	{% elif media['state'] == 7 %}
-		<p class="text-error"><strong>{{ _('Error') }}: </strong></p>
+		<div class="panel panel-danger" style="width: 90%">
+		<div class="panel-heading">	
+			<strong>{{ _('Error') }} </strong>
+		</div>
 	{% else %}
-		<p class="muted"><strong>{{ _('Stopped') }}</strong></p>
+		<div class="panel panel-info" style="width: 80%">
+		<div class="panel-heading">	
+			<strong>{{ _('Stopped') }}</strong>
+		</div>
 	{% endif %}
 	{% if media['mrl'] %}
 	<p>{{ media['mrl'] }}</p>
@@ -60,16 +96,10 @@
 	<p class="muted"><strong>{{ _('Stopped') }}</strong></p>
 {% endif %}
 <br>
-{% if "run_jobs" in perms %}<a href="/play/" class="btn btn-primary" title="{{ _('Play') }}"><i class="icon-play icon-white"></i></a> {%endif%}
-{% if "run_jobs" in perms %}<a href="/pause/" class="btn btn-info" title="{{ _('Pause') }}"><i class="icon-pause icon-white"></i></a> {% endif %}
-{% if "run_custom_jobs" in perms %}<a href="/open/" class="btn btn-success"><i class="icon-folder-open icon-white" title="{{ _('Open file') }}"></i></a>{% endif %}
+{% if "run_jobs" in perms %}<a href="/play/" class="btn btn-primary" title="{{ _('Play') }}">{{ _('Play') }}</a> {%endif%}
+{% if "run_jobs" in perms %}<a href="/pause/" class="btn btn-info" title="{{ _('Pause') }}">{{ _('Pause') }}</a> {% endif %}
+{% if "run_custom_jobs" in perms %}<a href="/open/" class="btn btn-success">{{ _('Open file') }}</a>{% endif %}
+</div>
+</center>
 <br><br>
-{% if "get_token" in perms %}
-<p>
-<a href="/gethash/" class="btn btn-primary">{{ _('Get token') }}</a>
-</p>
-{% endif %}
-<p>
-<a href="/getscreenshot.png" class="btn btn-primary">{{ _('Take screenshot') }}</a>
-</p>
 {% endblock %}
