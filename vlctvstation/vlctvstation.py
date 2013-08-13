@@ -247,7 +247,7 @@ def logout():
 def root():
     perms = settings.get_permissions(auth.is_logged())
     media = get_player_info(media_player)
-    return render_template("jobs.html", jobs=sorted(sched.get_jobs()), media=media, datetime=datetime.now(), current_job=current_job, _=translation.ugettext, perms=perms, player=media_player)
+    return render_template("jobs.html", jobs=sorted(sched.get_jobs()), media=media, datetime=datetime.now().strftime("%d-%m-%Y %k:%M:%S"), current_job=current_job, _=translation.ugettext, perms=perms, player=media_player)
 
 
 @app.route("/addjob/", methods=["GET", "POST"])
