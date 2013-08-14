@@ -101,9 +101,9 @@ def get_last_date_from_job(job):
     dtdelta = timedelta(days=-1)
     last_time = job.get_run_times(now - dtdelta)
     if len(last_time) == 0:
-        return job.next_run_time()
+        return str(now + dtdelta)
     else:
-        return last_time.pop()
+        return str(last_time.pop())
 
 
 def run_last_job(jobs):
