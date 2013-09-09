@@ -4,9 +4,9 @@
 <form action="" method="POST" class="form-horizontal">
 <center>
 	<div class="form-group">
-		<label for="inputEmail" class="col-lg-3 control-label">{{ _('Name') }}</label>
+		<label for="inputName" class="col-lg-3 control-label">{{ _('Name') }}</label>
 		<div class="col-lg-8">
-			<input type="text" name="name" class="form-control" placeholder="{{ _('Name') }}">
+			<input type="text" id="inputName" name="name" class="form-control" placeholder="{{ _('Name') }}">
 			</div>
 	</div>
 	<div class="panel panel-info" style="width:90%">
@@ -14,51 +14,51 @@
 			<strong>{{ _('Date and time') }}</strong>
 		</div>
 		<div class="form-group">
-			<label for="inputEmail" class="col-lg-3 control-label">{{ _('Seconds') }}</label>
+			<label for="inputSeconds" class="col-lg-3 control-label">{{ _('Seconds') }}</label>
 			<div class="col-lg-8">
-				<input type="text" name="second" class="form-control" placeholder="{{ _('Seconds') }}">
+				<input type="text" id="inputSeconds" name="second" class="form-control" placeholder="{{ _('Seconds') }}">
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="inputEmail" class="col-lg-3 control-label">{{ _('Minutes') }}</label>
+			<label for="inputMinutes" class="col-lg-3 control-label">{{ _('Minutes') }}</label>
 			<div class="col-lg-8">
-				<input type="text" name="minute" class="form-control" placeholder="{{ _('Minutes') }}">
+				<input type="text" id="inputMinutes" name="minute" class="form-control" placeholder="{{ _('Minutes') }}">
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="inputEmail" class="col-lg-3 control-label">{{ _('Hours') }}</label>
+			<label for="inputHours" class="col-lg-3 control-label">{{ _('Hours') }}</label>
 			<div class="col-lg-8">
-				<input type="text" name="hour" class="form-control" placeholder="{{ _('Hours') }}">
+				<input type="text" id="inputHours" name="hour" class="form-control" placeholder="{{ _('Hours') }}">
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="inputEmail" class="col-lg-3 control-label">{{ _('Days of week') }}</label>
+			<label for="inputDaysOfWeek" class="col-lg-3 control-label">{{ _('Days of week') }}</label>
 			<div class="col-lg-8">
-				<input type="text" name="day_of_week" class="form-control" placeholder="{{ _('Days of week') }}">
+				<input type="text" id="inputDaysOfWeek" name="day_of_week" class="form-control" placeholder="{{ _('Days of week') }}">
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="inputEmail" class="col-lg-3 control-label">{{ _('Weeks') }}</label>
+			<label for="inputWeeks" class="col-lg-3 control-label">{{ _('Weeks') }}</label>
 			<div class="col-lg-8">
-				<input type="text" name="week" class="form-control" placeholder="{{ _('Weeks') }}">
+				<input type="text" id="inputWeeks" name="week" class="form-control" placeholder="{{ _('Weeks') }}">
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="inputEmail" class="col-lg-3 control-label">{{ _('Days') }}</label>
+			<label for="inputDays" class="col-lg-3 control-label">{{ _('Days') }}</label>
 			<div class="col-lg-8">
-				<input type="text" name="day" class="form-control" placeholder="{{ _('Days') }}">
+				<input type="text" id="inputDays" name="day" class="form-control" placeholder="{{ _('Days') }}">
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="inputEmail" class="col-lg-3 control-label">{{ _('Months') }}</label>
+			<label for="inputMonths" class="col-lg-3 control-label">{{ _('Months') }}</label>
 			<div class="col-lg-8">
-				<input type="text" name="month" class="form-control" placeholder="{{ _('Months') }}">
+				<input type="text" id="inputMonths" name="month" class="form-control" placeholder="{{ _('Months') }}">
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="inputEmail" class="col-lg-3 control-label">{{ _('Years') }}</label>
+			<label for="inputYears" class="col-lg-3 control-label">{{ _('Years') }}</label>
 			<div class="col-lg-8">
-				<input type="text" name="year" class="form-control" placeholder="{{ _('Years') }}">
+				<input type="text" id="inputYears" name="year" class="form-control" placeholder="{{ _('Years') }}">
 			</div>
 		</div>
 	</div>
@@ -67,33 +67,33 @@
 			<strong>{{ _('Media options') }}</strong>
 		</div>
 		<div class="form-group">
-			<label for="inputEmail" class="col-lg-3 control-label">{{ _('Video source') }}</label>
+			<label for="inputVideoSource" class="col-lg-3 control-label">{{ _('Video source') }}</label>
 			<div class="col-lg-8">
-				<input type="text" name="uri" class="form-control" placeholder="{{ _('Video source') }}">
+				<input type="text" id="inputVideoSource" name="uri" class="form-control" placeholder="{{ _('Video source') }}">
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="inputEmail" class="col-lg-3 control-label">{{ _('Audio source') }}</label>
+			<label for="inputAudioSource" class="col-lg-3 control-label">{{ _('Audio source') }}</label>
 			<div class="col-lg-8">
-				<input type="text" name="audio" class="form-control" placeholder="{{ _('Audio source') }}">
+				<input type="text" id="inputAudioSource" name="audio" class="form-control" placeholder="{{ _('Audio source') }}">
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="inputEmail" class="col-lg-3 control-label">{{ _('Repeats') }}</label>
+			<label for="inputRepeats" class="col-lg-3 control-label">{{ _('Repeats') }}</label>
 			<div class="col-lg-8">
-				<input type="text" name="repeat" class="form-control" placeholder="{{ _('Repeats') }}">
+				<input type="text" id="inputRepeats" name="repeat" class="form-control" placeholder="{{ _('Repeats') }}">
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="inputEmail" class="col-lg-3 control-label">{{ _('Aspect ratio') }}</label>
+			<label for="inputAspect" class="col-lg-3 control-label">{{ _('Aspect ratio') }}</label>
 			<div class="col-lg-8">
-				<input type="text" name="aspect" class="form-control" placeholder="{{ _('Aspect ratio') }}">
+				<input type="text" id="inputAspect" name="aspect" class="form-control" placeholder="{{ _('Aspect ratio') }}">
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="inputEmail" class="col-lg-3 control-label">{{ _('Run after end') }}</label>
+			<label for="inputRunAfterEnd" class="col-lg-3 control-label">{{ _('Run after end') }}</label>
 			<div class="col-lg-8">
-				<select name="if_end_reached_run" class="form-control">
+				<select id="inputRunAfterEnd" name="if_end_reached_run" class="form-control">
 					<option value=""></option>
 					{% for ljob in jobs %}
 						<option value="{{ ljob.name }}">{{ ljob.name }}</option>
@@ -107,39 +107,39 @@
 			<strong>{{ _('Showing text') }}</strong>
 		</div>
 		<div class="form-group">
-			<label for="inputEmail" class="col-lg-3 control-label">{{ _('Text') }}</label>
+			<label for="inputText" class="col-lg-3 control-label">{{ _('Text') }}</label>
 			<div class="col-lg-8">
-				<input type="text" name="marq_text" class="form-control" placeholder="{{ _('Text') }}">
+				<input type="text" id="inputText" name="marq_text" class="form-control" placeholder="{{ _('Text') }}">
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="inputEmail" class="col-lg-3 control-label">{{ _('Color') }}</label>
+			<label for="inputColor" class="col-lg-3 control-label">{{ _('Color') }}</label>
 			<div class="col-lg-8">
-				<input type="text" name="marq_color" class="form-control" placeholder="{{ _('Color') }}">
+				<input type="text" id="inputColor" name="marq_color" class="form-control" placeholder="{{ _('Color') }}">
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="inputEmail" class="col-lg-3 control-label">{{ _('Initial position') }}</label>
+			<label for="inputInitialPosition" class="col-lg-3 control-label">{{ _('Initial position') }}</label>
 			<div class="col-lg-8">
-				<input type="text" name="marq_position" class="form-control" placeholder="{{ _('Initial position') }}">
+				<input type="text" id="inputInitialPosition" name="marq_position" class="form-control" placeholder="{{ _('Initial position') }}">
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="inputEmail" class="col-lg-3 control-label">{{ _('Horizontal offset') }}</label>
+			<label for="inputHorizontalOffset" class="col-lg-3 control-label">{{ _('Horizontal offset') }}</label>
 			<div class="col-lg-8">
-				<input type="text" name="marq_x" class="form-control" placeholder="{{ _('Horizontal offset') }}">
+				<input type="text" id="inputHorizontalOffset" name="marq_x" class="form-control" placeholder="{{ _('Horizontal offset') }}">
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="inputEmail" class="col-lg-3 control-label">{{ _('Vertical offset') }}</label>
+			<label for="inputVerticalOffset" class="col-lg-3 control-label">{{ _('Vertical offset') }}</label>
 			<div class="col-lg-8">
-				<input type="text" name="marq_y" class="form-control" placeholder="{{ _('Vertical offset') }}">
+				<input type="text" id="inputVerticalOffset" name="marq_y" class="form-control" placeholder="{{ _('Vertical offset') }}">
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="inputEmail" class="col-lg-3 control-label">{{ _('Font size') }}</label>
+			<label for="inputFontSize" class="col-lg-3 control-label">{{ _('Font size') }}</label>
 			<div class="col-lg-8">
-				<input type="text" name="marq_size" class="form-control" placeholder="{{ _('Font size') }}">
+				<input type="text" id="inputFontSize" name="marq_size" class="form-control" placeholder="{{ _('Font size') }}">
 			</div>
 		</div>
 	</div>

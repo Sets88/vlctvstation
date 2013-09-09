@@ -54,6 +54,7 @@
 		<div class="panel-heading">	
 			<strong>{{ _('Playing') }} </strong>
 		</div>
+		<br/>
 		<div class="progress progress-striped">
   			<div class="progress-bar progress-bar-info" style="width: {{ get_percents(player.get_position()) }}%;"></div>
 		</div>
@@ -62,6 +63,7 @@
 		<div class="panel-heading">	
 			<strong>{{ _('Paused') }} </strong>
 		</div>
+		<br/>
 		<div class="progress progress-striped">
   			<div class="progress-bar progress-bar-info" style="width: {{ get_percents(player.get_position()) }}%;"></div>
 		</div>
@@ -75,6 +77,7 @@
 		<div class="panel-heading">	
 			<strong>{{ _('Ended') }} </strong>
 		</div>
+		<br/>
 		<div class="progress progress-striped">
   			<div class="progress-bar progress-bar-info" style="width: 100%;"></div>
 		</div>
@@ -96,9 +99,11 @@
 	<p class="muted"><strong>{{ _('Stopped') }}</strong></p>
 {% endif %}
 <br>
-{% if "run_jobs" in perms %}<a href="/play/" class="btn btn-primary" title="{{ _('Play') }}">{{ _('Play') }}</a> {%endif%}
-{% if "run_jobs" in perms %}<a href="/pause/" class="btn btn-info" title="{{ _('Pause') }}">{{ _('Pause') }}</a> {% endif %}
-{% if "run_custom_jobs" in perms %}<a href="/open/" class="btn btn-success">{{ _('Open file') }}</a>{% endif %}
+{% if "run_jobs" in perms %}<a href="/play/" class="btn btn-primary" title="{{ _('Play') }}"><i class="glyphicon glyphicon-play"></i></a>{%endif%}
+{% if "run_jobs" in perms %}<a href="/pause/" class="btn btn-info" title="{{ _('Pause') }}"><i class="glyphicon glyphicon-pause"></i></a>{% endif %}
+{% if "run_custom_jobs" in perms %}<a href="/open/" class="btn btn-success" title="{{ _('Open file') }}"><i class="glyphicon glyphicon-eject"></i></a>{% endif %}
+<br/>
+<br/>
 </div>
 </center>
 <br><br>
