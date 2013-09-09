@@ -1,4 +1,7 @@
 {% extends "main.html" %}
+{% block title %}
+	{{ _('Open file') }}
+{% endblock %}
 {% block content %}
 <form action="/open/" method="POST">
 <table>
