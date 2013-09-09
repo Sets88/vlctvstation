@@ -22,7 +22,7 @@
 {% for job in jobs %}
 	<tr class="{{ job.id }} {% if current_job %}{% if current_job.id == job.id %}success{% endif %}{% endif %}">
 		<td>
-			{% if "edit_jobs" in perms %}<a href="/editjob/{{ job.id }}/">{{ job }}</a>
+			{% if "edit_jobs" in perms %}<a class="editjob" href="/editjob/{{ job.id }}/">{{ job }}</a>
 			{% else %}
 				{{ job }}
 			{% endif %}
@@ -35,7 +35,9 @@
 {% endfor %}
 </table>
 {% endif %}
-{% if "add_jobs" in perms %}<span class="pull-right"><a href="/addjob/" class="btn btn-primary">{{ _('Add job') }}</a></span>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+</div>
+{% if "add_jobs" in perms %}<span class="pull-right"><a href="/addjob/" class="addjob btn btn-primary">{{ _('Add job') }}</a></span>
 <br><br>
 {% endif %}
 </div>
@@ -104,7 +106,7 @@
 <br>
 {% if "run_jobs" in perms %}<a href="/play/" class="btn btn-primary" title="{{ _('Play') }}"><i class="glyphicon glyphicon-play"></i></a>{%endif%}
 {% if "run_jobs" in perms %}<a href="/pause/" class="btn btn-info" title="{{ _('Pause') }}"><i class="glyphicon glyphicon-pause"></i></a>{% endif %}
-{% if "run_custom_jobs" in perms %}<a href="/open/" class="btn btn-success" title="{{ _('Open file') }}"><i class="glyphicon glyphicon-eject"></i></a>{% endif %}
+{% if "run_custom_jobs" in perms %}<a href="/open/" class="openmedia btn btn-success" title="{{ _('Open file') }}"><i class="glyphicon glyphicon-eject"></i></a>{% endif %}
 <br/>
 <br/>
 </div>

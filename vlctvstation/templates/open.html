@@ -1,4 +1,4 @@
-{% extends "main.html" %}
+{% extends layout_template %}
 {% block title %}
 	{{ _('Open file') }}
 {% endblock %}
@@ -18,8 +18,11 @@
 		<td><input type="text" name="repeat" class="form-control" value=""></td>
 	</tr>
 	<tr>
-		<td colspan=2><input class="btn btn-primary" type="submit" value="{{ _('Open') }}"> <a class="btn" href="/">{{ _('Cancel') }}</a></td>
+		<td colspan=2></td>
 	</tr>
 </table>
+{% endblock %}
+{% block footer %}
+<input class="btn btn-primary" type="submit" value="{{ _('Open') }}"> <a class="btn" href="/">{{ _('Cancel') }}</a>
 </form>
 {% endblock %}

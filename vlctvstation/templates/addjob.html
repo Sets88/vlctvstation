@@ -1,10 +1,10 @@
-{% extends "main.html" %}
+{% extends layout_template %}
 {% block title %}
 	{{ _('Add job') }}
 {% endblock %}
 {% block content %}
 <br>
-<form action="" method="POST" class="form-horizontal">
+<form action="/addjob/" method="POST" class="form-horizontal">
 <center>
 	<div class="form-group">
 		<label for="inputName" class="col-lg-3 control-label">{{ _('Name') }}</label>
@@ -147,6 +147,8 @@
 		</div>
 	</div>
 </center>
+{% endblock %}
+{% block footer %}
 <span class="pull-right">
 	<input class="btn btn-primary" type="submit" value="{{ _('Add') }}"> <a class="btn" href="/">{{ _('Cancel') }}</a>
 </span>
