@@ -250,15 +250,19 @@ def root():
     return render_template("jobs.html", jobs=sorted(sched.get_jobs()), media=media, datetime=datetime.now().strftime("%d-%m-%Y %k:%M:%S"), current_job=current_job, _=translation.ugettext, perms=perms, player=media_player)
 
 
+@app.route("/addjob/<int:modal>/", methods=["GET", "POST"])
 @app.route("/addjob/", methods=["GET", "POST"])
 @login_required
 @require_permission("add_jobs")
-def add_job():
+def add_job(modal=False):
+    layout_template = "main.html"
+    if modal:
+        layout_template = "modal.html"
     if request.method == "POST":
         sched_add_job(**request.form.to_dict())
         return redirect("/")
     else:
-        return render_template("addjob.html", jobs=sched.get_jobs(), _=translation.ugettext)
+        return render_template("addjob.html", layout_template=layout_template, jobs=sched.get_jobs(), _=translation.ugettext)
 
 
 @app.route("/deletejob/<int:id>/")
@@ -289,9 +293,13 @@ def run_job(id, http=True):
 
 
 @app.route("/editjob/<int:id>/", methods=["GET", "POST"])
+@app.route("/editjob/<int:id>/<int:modal>/", methods=["GET", "POST"])
 @login_required
 @require_permission("edit_jobs")
-def edit_job(id):
+def edit_job(id, modal=False):
+    layout_template = "main.html"
+    if modal:
+        layout_template = "modal.html"
     curr_job = None
     for job in sched.get_jobs():
         if job.id == str(id):
@@ -307,7 +315,7 @@ def edit_job(id):
         #else:
             sched.unschedule_job(curr_job)
             return redirect("/")
-    return render_template("editjob.html", jobs=sched.get_jobs(), job=get_job_info(curr_job), _=translation.ugettext)
+    return render_template("editjob.html", layout_template=layout_template, jobs=sched.get_jobs(), job=get_job_info(curr_job), _=translation.ugettext)
 
 
 @app.route("/play/")
@@ -340,10 +348,14 @@ def player_pause(http=True):
         return True
 
 
+@app.route("/open/<int:modal>/", methods=["GET", "POST"])
 @app.route("/open/", methods=["GET", "POST"])
 @login_required
 @require_permission("run_custom_jobs")
-def player_open():
+def player_open(modal=False):
+    layout_template = "main.html"
+    if modal:
+        layout_template = "modal.html"
     if request.method == "POST":
         kwargs = {}
         if request.form['uri']:
@@ -359,7 +371,7 @@ def player_open():
 
         return redirect("/")
     else:
-        return render_template("open.html", _=translation.ugettext)
+        return render_template("open.html", layout_template=layout_template, _=translation.ugettext)
 
 
 @app.route("/gethash/", methods=["GET", "POST"])
