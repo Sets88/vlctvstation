@@ -1,7 +1,7 @@
 vlctvstation
 ============
 
-## Desctiption
+## Description
 
 Lets imgaine you are tiny organisation in a small town or even village, and you want to stream your own TV channel using your cable network.
 
