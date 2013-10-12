@@ -115,5 +115,6 @@ Lets test it:
     $ curl http://192.168.1.1:5000/api/0d17ee207e645270325cf43da8f101d461fd9f35/status/
     {"state": 3, "jobname": "Reklama", "uri": "/home/alexandra/video/Video.avi", "jobid": "905283"}
 
-Now we see that state - 3 (Playing), current job's name, uri of file or url form video field, and jobid (never use it, it could change)
+Now we see that state - 3 (Playing), current job's name, uri of file or url form video field, and jobid (never use it, it could change).
+
 You can use this information as you want, as for me, i used it to show/hide external banner over the video on some tasks.
