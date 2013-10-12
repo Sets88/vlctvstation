@@ -8,7 +8,7 @@ Lets imgaine you are tiny organisation in a small town or even village, and you 
 Then you searching for software which could help you with this, all you need is steam few tv shows, news and ads, and here you find out,
 that software you need costs huge money, and nobody cares you have only 5 viewers, well, this is kind of resolution of your problem.
 
-This is not streamer, app just opens content you choose on current screen, then you can convert it to analog signal or just cupture screen
+This is not streamer, app just opens content you choose at time you set on current screen, then you can convert it to analog signal or just cupture screen
 
 This app has the scheduler, which you can manage using web interface:
 
@@ -19,6 +19,8 @@ You can add any content you want, and set when it have to be played:
 
 ![Screenshot](http://sets88.com/static/media/uploads/images/vlctvstation/vlctvstation2.png)
 
+
+In this particular example, app will play file "/tmp/2.avi" every 12'th day of each month at 15:50 and will repeat it 2 times.
 
 ## Instalation and first run
 
