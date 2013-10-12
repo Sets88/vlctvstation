@@ -480,9 +480,9 @@ def main():
 
     current_dir = os.path.dirname(os.path.abspath(__file__))
     try:
-        translation = gettext.translation('vlctvstation', os.path.join(current_dir, 'translations'))
+        translation = gettext.translation('vlctvstation', os.path.join(current_dir, 'translations'), languages=[settings['language']])
     except (IOError):
-        translation = gettext.translation('vlctvstation', os.path.join(current_dir, 'translations'), languages=["en_GB"])
+        translation = gettext.translation('vlctvstation', os.path.join(current_dir, 'translations'), languages=["en"])
 
     sched.start()
     sched.add_jobstore(ShelveJobStore(settings['dbfile']), 'shelve')
