@@ -26,7 +26,7 @@ In this particular example, app will play file "/tmp/2.avi" every 12'th day of e
 
 In Ubuntu you can just copy this in terminal:
 
-    sudo apt-get -y install git python-flask python-apscheduler
+    sudo apt-get -y install git python-flask python-apscheduler vlc
     git clone https://github.com/Sets88/vlctvstation.git
     cd vlctvstation/vlctvstation
     python vlctvstation.py
