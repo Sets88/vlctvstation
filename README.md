@@ -30,8 +30,11 @@ In Ubuntu you can just copy this in terminal:
 ## Configuration
 
 Configuration file loads on start it firstly tryes to open config file from:
+
 "~/.vlctvstation.cfg"
+
 if any error happened it will open "default.cfg" from current directory
+
 There we have a simple formated json, i don't think it could raise any questions about this, but lets look on it:
 
     {
@@ -68,24 +71,33 @@ There we have a simple formated json, i don't think it could raise any questions
 
 
 fullscreen - you probably want to set it to true
+
 dbfile - location of database file where all tasks stored
+
 users - its dictionary where: "login": "password", you can also put comma and add another user like this
+
     "admin": "megasicretpass",
     "user": "supersecretpass"
+
 permissions - use comma to add user a privilege you want like this
 
     "add_jobs": [
         "admin", "user"
     ],
 
+
 language - if you read it, explaining not needed then
+
 secret - change it firstly! It uses to generate token and as a salt for user's pass
+
 host - IP or domain to listen on
+
 post - port to listen on
 
 ## API
 
 There is a way to check what is goin on know using API.
+
 To use an API you have to generate a token first
 
 ![Screenshot](http://sets88.com/static/media/uploads/images/vlctvstation/vlctvstation3.png)
