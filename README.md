@@ -6,9 +6,9 @@ vlctvstation
 Lets imgaine you are tiny organisation in a small town or even village, and you want to stream your own TV channel using your cable network.
 
 Then you searching for software which could help you with this, all you need is steam few tv shows, news and ads, and here you find out,
-that software you need costs huge money, and nobody cares you have only 5 viewers, well, this is kind of resolution of your problem.
+that software you need, costs huge money, and nobody cares you have only 5 viewers, well, this is kind of resolution for your problem.
 
-This is not streamer, app just opens content you choose at time you set on current screen, then you can convert it to analog signal or just cupture screen
+This is not a streamer, app just opens content you choose, at time you set on current screen, then you can convert it to analog signal or just cupture screen.
 
 This app has the scheduler, which you can manage using web interface:
 
