@@ -73,9 +73,11 @@ users - its dictionary where: "login": "password", you can also put comma and ad
     "admin": "megasicretpass",
     "user": "supersecretpass"
 permissions - use comma to add user a privilege you want like this
+
     "add_jobs": [
         "admin", "user"
     ],
+
 language - if you read it, explaining not needed then
 secret - change it firstly! It uses to generate token and as a salt for user's pass
 host - IP or domain to listen on
