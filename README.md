@@ -22,10 +22,10 @@ You can add any content you want, and set when it have to be played:
 
 In this particular example, app will play file "/tmp/2.avi" every 12'th day of each month at 15:50 and will repeat it 2 times.
 
-![Screenshot](http://sets88.com/static/media/uploads/images/vlctvstation/vlctvstation4.png)
-
 
 You even can get a screenshot from your VlcTvStation machine, to see what's happening now, for example here's my screenshot:
+
+![Screenshot](http://sets88.com/static/media/uploads/images/vlctvstation/vlctvstation4.png)
 
 
 ## Instalation and first run
