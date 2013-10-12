@@ -10,7 +10,7 @@ that software you need, costs huge money, and nobody cares you have only 5 viewe
 
 This is not a streamer, app just opens content you choose, at time you set on current screen, then you can convert it to analog signal or just cupture screen.
 
-This app has the scheduler, which you can manage using web interface:
+This app has the scheduler, which you can manage remotely using web interface:
 
 ![Screenshot](http://sets88.com/static/media/uploads/images/vlctvstation/vlctvstation.png)
 
@@ -21,6 +21,12 @@ You can add any content you want, and set when it have to be played:
 
 
 In this particular example, app will play file "/tmp/2.avi" every 12'th day of each month at 15:50 and will repeat it 2 times.
+
+![Screenshot](http://sets88.com/static/media/uploads/images/vlctvstation/vlctvstation4.png)
+
+
+You even can get a screenshot from your VlcTvStation machine, to see what's happening now, for example here's my screenshot:
+
 
 ## Instalation and first run
 
