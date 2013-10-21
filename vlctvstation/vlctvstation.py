@@ -387,15 +387,21 @@ def player_open(modal=False):
         return render_template("open.html", layout_template=layout_template, _=translation.ugettext)
 
 
+@app.route("/gethash/<int:modal>/", methods=["GET", "POST"])
 @app.route("/gethash/", methods=["GET", "POST"])
 @login_required
 @require_permission("get_token")
-def get_hash():
+def get_hash(modal=False):
+    layout_template = "main.html"
+
+    if modal:
+        layout_template = "modal.html"
+
     if request.method == "POST":
         hashh = auth.get_ip_hash(request.form['ip'])
-        return render_template("gethash.html", ip=request.form['ip'],  hash=hashh, _=translation.ugettext)
+        return render_template("gethash.html", layout_template=layout_template, ip=request.form['ip'],  hash=hashh, _=translation.ugettext)
     else:
-        return render_template("gethash.html", _=translation.ugettext)
+        return render_template("gethash.html", layout_template=layout_template,_=translation.ugettext)
 
 
 @app.route("/getscreenshot.png")
