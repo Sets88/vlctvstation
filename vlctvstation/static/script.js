@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	$(document).on('click',".editjob,.addjob,.openmedia",function()
+	$(document).on('click',".editjob,.addjob,.openmedia,.deletejob",function()
 	{
 		$.ajax({
 			url: $(this).attr("href") + "1/",

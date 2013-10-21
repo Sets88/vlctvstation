@@ -28,7 +28,7 @@
 			{% endif %}
 		</td>
 		<td align="right">
-			{% if "delete_jobs" in perms %}<a href="/deletejob/{{ job.id }}/" class="btn btn-danger">{{ _('Delete') }}</a>{% endif %}
+			{% if "delete_jobs" in perms %}<a href="/deletejob/{{ job.id }}/" class=" deletejob btn btn-danger">{{ _('Delete') }}</a>{% endif %}
 			{% if "run_jobs" in perms %}<a href="/runjob/{{ job.id }}/" class="btn btn-primary">{{ _('Run') }}</a>{% endif %}
 		</td>
 	</tr>

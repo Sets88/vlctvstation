@@ -1,0 +1,22 @@
+{% extends layout_template %}
+{% block title %}
+	{{ _('Delete job') }}
+{% endblock %}
+{% block content %}
+<br>
+<form action="/deletejob/{{ job.id }}/" method="POST" class="form-horizontal">
+<center>
+	<h3>{{ _('Do you want to delete this job?') }}:</h3><br>
+	{{ job }}
+</center>
+{% endblock %}
+{% block footer %}
+<span class="pull-right">
+	<input class="btn btn-primary" type="submit" value="{{ _('Delete') }}"> <a class="btn" href="/">{{ _('Cancel') }}</a>
+</span>
+</form>
+<br>
+<br>
+<br>
+<br>
+{% endblock %}

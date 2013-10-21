@@ -265,14 +265,27 @@ def add_job(modal=False):
         return render_template("addjob.html", layout_template=layout_template, jobs=sched.get_jobs(), _=translation.ugettext)
 
 
-@app.route("/deletejob/<int:id>/")
+@app.route("/deletejob/<int:id>/<int:modal>/", methods=["GET", "POST"])
+@app.route("/deletejob/<int:id>/", methods=["GET", "POST"])
 @login_required
 @require_permission("delete_jobs")
-def delete_job(id):
+def delete_job(id, modal=False):
+    current_job = None
+    layout_template = "main.html"
+
+    if modal:
+        layout_template = "modal.html"
+
     for job in sched.get_jobs():
         if job.id == str(id):
-            sched.unschedule_job(job)
-            return redirect("/")
+            current_job = job
+
+    if current_job and request.method == "POST":
+        sched.unschedule_job(current_job)
+        return redirect("/")
+    if current_job:
+        return render_template("deletejob.html", layout_template=layout_template, job=current_job, _=translation.ugettext)
+
     abort(404)
 
 
