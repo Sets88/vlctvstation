@@ -24,8 +24,6 @@ $(document).ready(function(){
 	});
 	$(document).on('click', ".gethashsubmit", function()
 	{
-//		alert($("#gethashform").attr("action"));
-//			url: $("#gethashform").attr("action") + "1/",
 		var dataString = $("#gethashform").serialize();
 		$.ajax({
 			url: $("#gethashform").attr("action") + "1/",
