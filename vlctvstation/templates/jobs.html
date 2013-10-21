@@ -4,15 +4,6 @@
 {% endblock %}
 {% block content %}
 {% if jobs %}
-<div class="navbar navbar-inverse" style="background-color:#00146B">
-	<div class="container">
-	{% if "get_token" in perms %}
-	<a href="/gethash/" class="gethash navbar-brand">{{ _('Get token') }}</a>
-	{% endif %}
-	<a href="/getscreenshot.png" class="navbar-brand">{{ _('Take screenshot') }}</a>
-	</div>
-</div>
-
 <center>
 <div class="panel panel-primary" style="width: 90%">
 <div class="panel-heading" align="left">

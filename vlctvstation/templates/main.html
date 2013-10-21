@@ -11,6 +11,14 @@
 	<title>VLCTVStation - {% block title %}{% endblock %}</title>
 </head>
 <body>
+<div class="navbar navbar-inverse" style="background-color:#00146B">
+	<div class="container">
+	{% if "get_token" in perms %}
+		<a href="/gethash/" class="gethash navbar-brand">{{ _('Get token') }}</a>
+	{% endif %}
+	<a href="/getscreenshot.png" class="navbar-brand">{{ _('Take screenshot') }}</a>
+	</div>
+</div>
 {% block content %}
 {% endblock %}
 {% block footer %}
