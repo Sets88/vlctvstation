@@ -49,7 +49,9 @@ def event_end_reached_listener(event):
             sched.add_date_job(change_media_sources, datetime.now()+timedelta(seconds=1), kwargs=new_job.kwargs, name="temporary_system_job")
             #run_job_by_name(current_job.kwargs['if_end_reached_run'])
 
-def change_media_sources(uri, repeat=0, audio=None, if_end_reached_run=None, media_options=None):
+def change_media_sources(uri=None, repeat=0, audio=None, if_end_reached_run=None, media_options=None):
+    if uri is None:
+        return None
     options = []
     if audio is not None:
         options.append("no-audio")
