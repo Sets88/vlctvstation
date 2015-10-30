@@ -32,7 +32,8 @@ You even can get a screenshot from your VlcTvStation machine, to see what's happ
 
 In Ubuntu you can just copy this in terminal:
 
-    sudo apt-get -y install git python-flask python-apscheduler vlc
+    sudo apt-get -y install git python-flask vlc
+    sudo pip install apscheduler==2.1.2
     git clone https://github.com/Sets88/vlctvstation.git
     cd vlctvstation/vlctvstation
     python vlctvstation.py
